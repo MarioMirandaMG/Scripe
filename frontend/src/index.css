@@ -1,0 +1,58 @@
+/* Autor: Mario Miranda */
+/* index.css - Estilos globales y variables CSS para Scripe */
+
+:root {
+  --beige-light:  #F5F1E8;
+  --beige-medium: #D4C5B0;
+  --beige-dark:   #8B7355;
+  --gold:         #C9A86A;
+  --text-dark:    #2C2C2C;
+  --white:        #FFFFFF;
+
+  --font-title: 'Playfair Display', serif;
+  --font-body:  'Inter', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--beige-light);
+  color: var(--text-dark);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul {
+  list-style: none;
+}

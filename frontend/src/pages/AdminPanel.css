@@ -1,0 +1,359 @@
+/* Autor: Mario Miranda */
+/* AdminPanel.css - Estilos del panel de administración */
+
+/* ─── Layout ─── */
+.admin {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--beige-light);
+}
+
+.admin-contenido {
+  flex: 1;
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+.admin-contenido h2 {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+}
+
+/* ─── Tabs ─── */
+.admin-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-tabs button {
+  padding: 0.5rem 1.5rem;
+  border: 2px solid var(--beige-medium);
+  border-radius: 6px;
+  background: var(--white);
+  cursor: pointer;
+  font-weight: 500;
+  font-family: var(--font-body);
+  transition: all 0.2s;
+}
+
+.admin-tabs button:hover {
+  background: var(--beige-medium);
+}
+
+.admin-tabs button.activo {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--white);
+}
+
+/* ─── Tabla ─── */
+.admin-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  table-layout: auto;
+}
+
+.admin-tabla thead {
+  background: var(--beige-dark);
+  color: var(--white);
+}
+
+.admin-tabla th {
+  padding: 0.9rem 1.2rem;
+  text-align: left;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.admin-tabla td {
+  padding: 0.75rem 1.2rem;
+  text-align: left;
+  font-size: 0.95rem;
+  vertical-align: middle;
+  white-space: nowrap;
+  border-top: 1px solid var(--beige-light);
+}
+
+.admin-tabla tbody tr:nth-child(even) {
+  background: var(--beige-light);
+}
+
+.admin-tabla tbody tr:hover {
+  background: #ede8df;
+}
+
+/* ─── Select estado ─── */
+.admin-tabla select {
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--beige-medium);
+  border-radius: 6px;
+  background: var(--white);
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+/* ─── Stock ─── */
+.stock-acciones {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stock-acciones button {
+  background: none;
+  border: 1px solid var(--beige-dark);
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+  line-height: 1;
+  transition: all 0.2s;
+}
+
+.stock-acciones button:hover {
+  background: var(--beige-dark);
+  color: var(--white);
+}
+
+.stock-acciones span {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* ─── Acciones producto ─── */
+.producto-acciones {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn-editar {
+  padding: 0.35rem 0.9rem;
+  background: var(--beige-medium);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.btn-editar:hover {
+  background: var(--beige-dark);
+  color: var(--white);
+}
+
+.btn-eliminar {
+  padding: 0.35rem 0.9rem;
+  background: none;
+  border: 1px solid #c0392b;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  color: #c0392b;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-eliminar:hover {
+  background: #c0392b;
+  color: var(--white);
+}
+
+/* ─── Modal ─── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+
+.modal h3 {
+  font-family: var(--font-title);
+  font-size: 1.3rem;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.modal label {
+  font-size: 0.85rem;
+  color: var(--beige-dark);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.modal input,
+.modal textarea {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--beige-medium);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  width: 100%;
+  background: var(--beige-light);
+  transition: border 0.2s;
+}
+
+.modal input:focus,
+.modal textarea:focus {
+  outline: none;
+  border-color: var(--beige-dark);
+}
+
+.modal textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.modal-btns {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn-guardar {
+  background: var(--gold);
+  color: var(--white);
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.btn-guardar:hover {
+  background: var(--beige-dark);
+}
+
+.btn-cancelar {
+  background: none;
+  border: 1px solid var(--beige-dark);
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  transition: all 0.2s;
+}
+
+.btn-cancelar:hover {
+  background: var(--beige-dark);
+  color: var(--white);
+}
+
+/* ─── Stats ─── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.stat-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.stat-icon { font-size: 1.8rem; }
+.stat-label { font-size: 0.8rem; color: #888; text-align: center; }
+.stat-valor { font-size: 1.4rem; font-weight: 700; color: #222; }
+.stat-sub { font-size: 0.85rem; color: #555; }
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .admin-contenido {
+    padding: 0 1rem;
+    margin: 1rem auto;
+  }
+
+  .admin-contenido h2 {
+    font-size: 1.5rem;
+  }
+
+  .admin-tabs {
+    flex-wrap: wrap;
+  }
+
+  .admin-tabs button {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  /* Tabla scrollable horizontalmente */
+  .admin-tabla {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Modal ocupa casi toda la pantalla */
+  .modal {
+    padding: 1.5rem 1rem;
+    margin: 1rem;
+    max-width: 100%;
+  }
+
+  .modal-btns {
+    flex-direction: column;
+  }
+
+  .btn-guardar,
+  .btn-cancelar {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Stats en 2 columnas en móvil */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 380px) {
+  /* Stats en 1 columna en pantallas muy pequeñas */
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,207 @@
+/* Autor: Mario Miranda */
+/* Navbar.css - Estilos para la barra de navegación */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--beige-dark);
+  padding: 1rem 2rem;
+  position: relative;
+  z-index: 100;
+}
+
+.navbar-logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.navbar-logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.navbar-marca {
+  font-family: var(--font-title);
+  font-size: 1.8rem;
+  color: var(--white);
+  letter-spacing: 2px;
+}
+
+.navbar-tagline {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  color: var(--beige-medium);
+  letter-spacing: 1px;
+}
+
+/* ─── Hamburguesa ─── */
+.navbar-hamburguesa {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  z-index: 200;
+}
+
+.navbar-hamburguesa span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--white);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.navbar-hamburguesa.activo span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.navbar-hamburguesa.activo span:nth-child(2) {
+  opacity: 0;
+}
+.navbar-hamburguesa.activo span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ─── Overlay ─── */
+.navbar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 98;
+}
+
+/* ─── Menú desktop ─── */
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.navbar-enlaces {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar-enlaces a {
+  color: var(--white);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  transition: color 0.2s;
+}
+
+.navbar-enlaces a:hover {
+  color: var(--gold);
+}
+
+.navbar-derecha {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar-carrito a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-carrito a:hover {
+  color: var(--gold);
+}
+
+.navbar-carrito-count {
+  background: var(--gold);
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.1rem 0.45rem;
+  border-radius: 20px;
+  margin-left: 0.3rem;
+}
+
+.navbar-btn {
+  color: var(--white);
+  background: none;
+  border: 1px solid var(--white);
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.navbar-btn:hover {
+  background-color: var(--white);
+  color: var(--beige-dark);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem 1.2rem;
+  }
+
+  .navbar-hamburguesa {
+    display: flex;
+  }
+
+  .navbar-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100vh;
+    width: 75%;
+    max-width: 300px;
+    background-color: var(--beige-dark);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 5rem 2rem 2rem;
+    gap: 2rem;
+    z-index: 99;
+    transition: right 0.3s ease;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar-menu.abierto {
+    right: 0;
+  }
+
+  .navbar-enlaces {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .navbar-enlaces a {
+    font-size: 1.1rem;
+  }
+
+  .navbar-derecha {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

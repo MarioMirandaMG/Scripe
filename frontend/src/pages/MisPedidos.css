@@ -1,0 +1,113 @@
+/* Autor: Mario Miranda */
+/* MisPedidos.css */
+
+.mis-pedidos-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mis-pedidos-container {
+  flex: 1;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+.mis-pedidos-container h1 {
+  font-family: var(--font-title);
+  margin-bottom: 2rem;
+}
+
+.sin-pedidos {
+  text-align: center;
+  color: var(--beige-dark);
+  margin-top: 3rem;
+}
+
+.pedidos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pedido-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pedido-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--beige-dark);
+  color: var(--white);
+  padding: 0.8rem 1.2rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pedido-estado {
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.estado-pendiente { background-color: #f0ad4e; color: #fff; }
+.estado-enviado   { background-color: #5bc0de; color: #fff; }
+.estado-entregado { background-color: #5cb85c; color: #fff; }
+
+.pedido-productos {
+  padding: 1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.pedido-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pedido-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .mis-pedidos-container {
+    padding: 0 1rem;
+    margin: 1rem auto;
+  }
+
+  .mis-pedidos-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .pedido-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .pedido-productos {
+    padding: 0.8rem 1rem;
+  }
+
+  .pedido-item {
+    gap: 0.8rem;
+  }
+
+  .pedido-item img {
+    width: 40px;
+    height: 40px;
+  }
+}

@@ -1,0 +1,92 @@
+/* Autor: Mario Miranda */
+/* DetalleProducto.css - Estilos para la página de detalle de producto */
+
+.detalle {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.detalle-contenido {
+  display: flex;
+  gap: 3rem;
+  padding: 3rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  flex: 1;
+}
+
+.detalle-contenido img {
+  width: 420px;
+  min-width: 420px;
+  height: 480px;
+  object-fit: cover;
+  border: 1px solid var(--beige-medium);
+}
+
+.detalle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 1rem;
+}
+
+.detalle-info h1 {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  color: var(--beige-dark);
+}
+
+.detalle-precio {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--beige-dark);
+}
+
+.detalle-descripcion {
+  font-size: 1rem;
+  color: var(--text-dark);
+  line-height: 1.7;
+}
+
+.detalle-boton {
+  background-color: var(--beige-dark);
+  color: var(--white);
+  padding: 0.9rem 2rem;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+}
+
+.detalle-boton:hover {
+  background-color: var(--gold);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .detalle-contenido {
+    flex-direction: column;
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .detalle-contenido img {
+    width: 100%;
+    min-width: unset;
+    height: 300px;
+  }
+
+  .detalle-info h1 {
+    font-size: 1.5rem;
+  }
+
+  .detalle-boton {
+    width: 100%;
+    text-align: center;
+  }
+}

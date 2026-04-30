@@ -1,0 +1,62 @@
+/* Autor: Mario Miranda */
+/* Footer.css - Estilos para el pie de página */
+
+.footer {
+  background-color: var(--beige-dark);
+  color: var(--white);
+  padding: 2rem;
+  margin-top: auto;
+}
+
+.footer-contenido {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--gold);
+}
+
+.footer-marca h3 {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+}
+
+.footer-marca p {
+  font-size: 0.85rem;
+  color: var(--beige-medium);
+}
+
+.footer-enlaces h4 {
+  font-family: var(--font-title);
+  margin-bottom: 0.75rem;
+  color: var(--gold);
+}
+
+.footer-enlaces ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.footer-enlaces a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footer-enlaces a:hover {
+  color: var(--gold);
+}
+
+.footer-inferior {
+  text-align: center;
+  padding-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--beige-medium);
+}

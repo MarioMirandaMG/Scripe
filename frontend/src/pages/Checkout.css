@@ -1,0 +1,106 @@
+/* Autor: Mario Miranda */
+/* Checkout.css */
+
+.checkout-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--beige-light);
+}
+
+.checkout-container {
+  flex: 1;
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+.checkout-container h1 {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--text-dark);
+}
+
+.checkout-section {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.checkout-section h3 {
+  font-family: var(--font-title);
+  color: var(--beige-dark);
+  margin-bottom: 1rem;
+}
+
+.checkout-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--beige-medium);
+  font-size: 0.95rem;
+}
+
+.checkout-total {
+  text-align: right;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+.checkout-section select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid var(--beige-medium);
+  border-radius: 6px;
+  background: var(--white);
+  margin-bottom: 0.8rem;
+}
+
+.checkout-direccion-info {
+  color: var(--beige-dark);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.checkout-btn {
+  width: 100%;
+  background-color: var(--beige-dark);
+  color: var(--white);
+  border: none;
+  padding: 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.checkout-btn:hover {
+  background-color: var(--gold);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .checkout-container {
+    padding: 0 1rem;
+    margin: 1rem auto;
+  }
+
+  .checkout-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .checkout-section {
+    padding: 1rem;
+  }
+
+  .checkout-total {
+    text-align: left;
+  }
+}

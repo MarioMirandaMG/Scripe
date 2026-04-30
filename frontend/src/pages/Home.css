@@ -1,0 +1,134 @@
+/* Autor: Mario Miranda */
+/* Home.css - Estilos para la página principal */
+
+.home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero */
+.hero {
+  background-color: var(--beige-medium);
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.hero-texto h1 {
+  font-family: var(--font-title);
+  font-size: 3rem;
+  color: var(--beige-dark);
+  margin-bottom: 1rem;
+}
+
+.hero-texto p {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+}
+
+.hero-boton {
+  background-color: var(--beige-dark);
+  color: var(--white);
+  padding: 0.8rem 2rem;
+  text-decoration: none;
+  font-family: var(--font-body);
+  letter-spacing: 1px;
+  transition: background-color 0.2s;
+}
+
+.hero-boton:hover {
+  background-color: var(--gold);
+}
+
+/* Productos destacados */
+.destacados {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.destacados h2 {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  color: var(--beige-dark);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.destacados-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.producto-card {
+  background-color: var(--white);
+  text-decoration: none;
+  color: var(--text-dark);
+  border: 1px solid var(--beige-medium);
+  transition: transform 0.2s;
+}
+
+.producto-card:hover {
+  transform: translateY(-4px);
+}
+
+.producto-imagen img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.producto-card h3 {
+  font-family: var(--font-title);
+  padding: 1rem 1rem 0.3rem;
+  font-size: 1.1rem;
+}
+
+.producto-card p {
+  padding: 0 1rem 1rem;
+  color: var(--beige-dark);
+  font-weight: 500;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .hero {
+    padding: 3rem 1.2rem;
+  }
+
+  .hero-texto h1 {
+    font-size: 2rem;
+  }
+
+  .hero-texto p {
+    font-size: 1rem;
+  }
+
+  .hero-boton {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+  }
+
+  .destacados {
+    padding: 2rem 1rem;
+  }
+
+  .destacados h2 {
+    font-size: 1.5rem;
+  }
+
+  .destacados-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .producto-imagen img {
+    height: 180px;
+  }
+}
