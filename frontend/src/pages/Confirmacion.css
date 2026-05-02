@@ -1,6 +1,7 @@
 /* Autor: Mario Miranda */
 /* Confirmacion.css */
 
+/* Página en columna para que el footer quede pegado al fondo */
 .confirmacion-page {
   min-height: 100vh;
   display: flex;
@@ -8,6 +9,7 @@
   background-color: var(--beige-light);
 }
 
+/* Centra la tarjeta vertical y horizontalmente */
 .confirmacion-container {
   flex: 1;
   display: flex;
@@ -16,6 +18,7 @@
   padding: 2rem;
 }
 
+/* Tarjeta de confirmación centrada con sombra suave */
 .confirmacion-card {
   background: var(--white);
   border-radius: 12px;
@@ -26,6 +29,7 @@
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
+/* Emoji o icono grande de éxito */
 .confirmacion-icono {
   font-size: 3rem;
   margin-bottom: 1rem;
@@ -42,11 +46,13 @@
   margin-bottom: 0.5rem;
 }
 
+/* Número identificador del pedido */
 .confirmacion-id {
   font-size: 1rem;
   margin: 1rem 0;
 }
 
+/* Botones de acción: ir al catálogo o ver mis pedidos */
 .confirmacion-btns {
   display: flex;
   gap: 1rem;
@@ -64,13 +70,16 @@
   transition: all 0.2s;
 }
 
+/* Hover invertido: fondo oscuro con texto blanco */
 .confirmacion-btns button:hover {
   background: var(--beige-dark);
   color: var(--white);
 }
 
-/* ─── Responsive ─── */
+/* ─── Responsive ──────────────────────────────────────────────── */
+
 @media (max-width: 768px) {
+  /* En móvil la tarjeta se alinea arriba en lugar de al centro */
   .confirmacion-container {
     padding: 1rem;
     align-items: flex-start;
@@ -81,6 +90,7 @@
     padding: 2rem 1.2rem;
   }
 
+  /* Botones en columna para facilitar el toque */
   .confirmacion-btns {
     flex-direction: column;
   }

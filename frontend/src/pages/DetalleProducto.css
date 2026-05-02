@@ -1,12 +1,14 @@
 /* Autor: Mario Miranda */
 /* DetalleProducto.css - Estilos para la página de detalle de producto */
 
+/* Página en columna para que el footer quede pegado al fondo */
 .detalle {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
+/* Layout horizontal: imagen a la izquierda, info a la derecha */
 .detalle-contenido {
   display: flex;
   gap: 3rem;
@@ -17,6 +19,7 @@
   flex: 1;
 }
 
+/* Imagen del producto con tamaño fijo y recorte */
 .detalle-contenido img {
   width: 420px;
   min-width: 420px;
@@ -25,6 +28,7 @@
   border: 1px solid var(--beige-medium);
 }
 
+/* Columna de información con separación entre elementos */
 .detalle-info {
   display: flex;
   flex-direction: column;
@@ -50,6 +54,7 @@
   line-height: 1.7;
 }
 
+/* Botón de añadir al carrito — cambia a dorado al hacer hover */
 .detalle-boton {
   background-color: var(--beige-dark);
   color: var(--white);
@@ -67,14 +72,17 @@
   background-color: var(--gold);
 }
 
-/* ─── Responsive ─── */
+/* ─── Responsive ──────────────────────────────────────────────── */
+
 @media (max-width: 768px) {
+  /* En móvil el layout pasa a columna: imagen arriba, info abajo */
   .detalle-contenido {
     flex-direction: column;
     padding: 1.5rem 1rem;
     gap: 1.5rem;
   }
 
+  /* La imagen ocupa el ancho completo con altura reducida */
   .detalle-contenido img {
     width: 100%;
     min-width: unset;
@@ -85,6 +93,7 @@
     font-size: 1.5rem;
   }
 
+  /* El botón ocupa todo el ancho en móvil */
   .detalle-boton {
     width: 100%;
     text-align: center;

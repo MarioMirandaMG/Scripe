@@ -10,14 +10,15 @@ import './MisDirecciones.css'
 function MisDirecciones() {
   const { token } = useAuth()
   const [direcciones, setDirecciones] = useState([])
+  // Controla si el formulario de nueva dirección está visible
   const [mostrarForm, setMostrarForm] = useState(false)
 
-  // Form state matching the actual DB columns
+  // Estado del formulario — campos que coinciden con las columnas de la BD
   const [form, setForm] = useState({
     direccion: '', ciudad: '', codigo_postal: '', es_principal: false
   })
 
-  // Load user addresses on mount
+  // Cargamos las direcciones del usuario al montar el componente
   useEffect(() => {
     fetch('http://localhost:8000/api/direcciones', {
       headers: { Authorization: `Bearer ${token}` }
@@ -26,12 +27,13 @@ function MisDirecciones() {
       .then(data => setDirecciones(data))
   }, [token])
 
+  // Maneja cambios en inputs de texto y en el checkbox de dirección principal
   const handleChange = e => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
     setForm({ ...form, [e.target.name]: value })
   }
 
-  // Submit new address
+  // Envía la nueva dirección al backend y la añade al estado local
   const handleSubmit = async e => {
     e.preventDefault()
     const res = await fetch('http://localhost:8000/api/direcciones', {
@@ -44,11 +46,12 @@ function MisDirecciones() {
     })
     const nueva = await res.json()
     setDirecciones([...direcciones, nueva])
+    // Cerramos el formulario y lo reseteamos
     setMostrarForm(false)
     setForm({ direccion: '', ciudad: '', codigo_postal: '', es_principal: false })
   }
 
-  // Delete address by ID
+  // Elimina una dirección por ID del backend y del estado local
   const eliminar = async id => {
     await fetch(`http://localhost:8000/api/direcciones/${id}`, {
       method: 'DELETE',
@@ -61,40 +64,59 @@ function MisDirecciones() {
     <div className="direcciones">
       <Navbar />
       <div className="direcciones-contenido">
-        <h2>My addresses</h2>
+        <h2>Mis direcciones</h2>
 
-        {/* List of saved addresses */}
+        {/* Lista de direcciones guardadas o mensaje vacío */}
         {direcciones.length === 0 ? (
-          <p className="direcciones-vacio">You have no saved addresses yet.</p>
+          <p className="direcciones-vacio">No tienes direcciones guardadas aún.</p>
         ) : (
           <div className="direcciones-lista">
             {direcciones.map(d => (
               <div className="direccion-card" key={d.id}>
-                {d.es_principal && <span className="badge-principal">Main</span>}
+                {/* Badge visible solo en la dirección marcada como principal */}
+                {d.es_principal && <span className="badge-principal">Principal</span>}
                 <p><strong>{d.direccion}</strong></p>
                 <p>{d.codigo_postal} — {d.ciudad}</p>
-                <button className="btn-eliminar" onClick={() => eliminar(d.id)}>Delete</button>
+                <button
+                  className="btn-eliminar"
+                  onClick={() => eliminar(d.id)}
+                  aria-label={`Eliminar dirección ${d.direccion}, ${d.ciudad}`}
+                >
+                  Eliminar
+                </button>
               </div>
             ))}
           </div>
         )}
 
-        {/* Toggle form button */}
+        {/* Botón que alterna entre mostrar y ocultar el formulario */}
         <button className="btn-nueva" onClick={() => setMostrarForm(!mostrarForm)}>
-          {mostrarForm ? 'Cancel' : '+ New address'}
+          {mostrarForm ? 'Cancelar' : '+ Nueva dirección'}
         </button>
 
-        {/* New address form */}
+        {/* Formulario de nueva dirección — visible solo cuando mostrarForm es true */}
         {mostrarForm && (
           <form className="direcciones-form" onSubmit={handleSubmit}>
-            <input name="direccion"     placeholder="Address"     value={form.direccion}     onChange={handleChange} required />
-            <input name="ciudad"        placeholder="City"        value={form.ciudad}        onChange={handleChange} required />
-            <input name="codigo_postal" placeholder="Postal code" value={form.codigo_postal} onChange={handleChange} required />
+
+            {/* Inputs con label asociado mediante htmlFor + id (WCAG nivel A) */}
+            <label htmlFor="direccion">Dirección</label>
+            <input id="direccion" name="direccion" placeholder="Dirección"
+              value={form.direccion} onChange={handleChange} required />
+
+            <label htmlFor="ciudad">Ciudad</label>
+            <input id="ciudad" name="ciudad" placeholder="Ciudad"
+              value={form.ciudad} onChange={handleChange} required />
+
+            <label htmlFor="codigo_postal">Código postal</label>
+            <input id="codigo_postal" name="codigo_postal" placeholder="Código postal"
+              value={form.codigo_postal} onChange={handleChange} required />
+
             <label className="checkbox-principal">
               <input type="checkbox" name="es_principal" checked={form.es_principal} onChange={handleChange} />
-              Set as main address
+              Establecer como dirección principal
             </label>
-            <button type="submit">Save address</button>
+
+            <button type="submit">Guardar dirección</button>
           </form>
         )}
       </div>

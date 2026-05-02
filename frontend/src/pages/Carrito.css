@@ -1,6 +1,7 @@
 /* Autor: Mario Miranda */
 /* Carrito.css - Estilos para la página del carrito */
 
+/* Contenedor central con ancho máximo para no ocupar toda la pantalla */
 .carrito-container {
   max-width: 800px;
   margin: 2rem auto;
@@ -12,18 +13,21 @@
   margin-bottom: 2rem;
 }
 
+/* Mensaje centrado cuando el carrito está vacío */
 .carrito-vacio {
   text-align: center;
   padding: 4rem 0;
   color: var(--beige-dark);
 }
 
+/* Lista de productos en columna con separación entre ellos */
 .carrito-items {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
+/* Fila de un producto: imagen + info + acciones */
 .carrito-item {
   display: flex;
   align-items: center;
@@ -32,6 +36,7 @@
   border-bottom: 1px solid var(--beige-dark);
 }
 
+/* Imagen cuadrada con recorte para mantener proporción */
 .carrito-item img {
   width: 80px;
   height: 80px;
@@ -39,11 +44,13 @@
   flex-shrink: 0;
 }
 
+/* La info ocupa el espacio restante; min-width:0 evita desbordamiento del texto */
 .carrito-item-info {
   flex: 1;
   min-width: 0;
 }
 
+/* Nombre del producto truncado con puntos suspensivos si es muy largo */
 .carrito-item-info h3 {
   font-size: 0.95rem;
   letter-spacing: 1px;
@@ -57,12 +64,14 @@
   margin-top: 0.3rem;
 }
 
+/* Controles de cantidad + botón eliminar */
 .carrito-item-acciones {
   display: flex;
   align-items: center;
   gap: 0.8rem;
 }
 
+/* Botones + / - de cantidad */
 .carrito-item-acciones button {
   background: none;
   border: 1px solid var(--beige-dark);
@@ -72,6 +81,7 @@
   font-size: 1rem;
 }
 
+/* Botón de eliminar producto sin estilo visible */
 .carrito-eliminar {
   background: none;
   border: none;
@@ -80,6 +90,7 @@
   font-size: 1rem;
 }
 
+/* Resumen del total alineado a la derecha */
 .carrito-resumen {
   margin-top: 2rem;
   text-align: right;
@@ -90,6 +101,7 @@
   margin-bottom: 1rem;
 }
 
+/* Botón de pago que cambia a dorado al hacer hover */
 .carrito-btn-pagar {
   background-color: var(--beige-dark);
   color: var(--white);
@@ -105,13 +117,15 @@
   background-color: var(--gold);
 }
 
-/* ─── Responsive ─── */
+/* ─── Responsive ──────────────────────────────────────────────── */
+
 @media (max-width: 768px) {
   .carrito-container {
     padding: 0 1rem;
     margin: 1rem auto;
   }
 
+  /* En móvil los elementos se envuelven si no caben en una fila */
   .carrito-item {
     flex-wrap: wrap;
     gap: 0.8rem;
@@ -122,14 +136,16 @@
     height: 64px;
   }
 
+  /* En móvil el nombre puede ocupar varias líneas */
   .carrito-item-info h3 {
-    white-space: normal; /* permite wrap en móvil */
+    white-space: normal;
   }
 
   .carrito-resumen {
     text-align: center;
   }
 
+  /* El botón de pago ocupa todo el ancho en móvil */
   .carrito-btn-pagar {
     width: 100%;
     padding: 0.9rem;

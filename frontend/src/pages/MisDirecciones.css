@@ -1,6 +1,7 @@
 /* Autor: Mario Miranda */
 /* MisDirecciones.css - Estilos de la página de direcciones */
 
+/* Página en columna para que el footer quede pegado al fondo */
 .direcciones {
   min-height: 100vh;
   display: flex;
@@ -8,6 +9,7 @@
   background-color: var(--beige-light);
 }
 
+/* Contenedor central con ancho máximo */
 .direcciones-contenido {
   flex: 1;
   max-width: 900px;
@@ -23,13 +25,16 @@
   margin-bottom: 1.5rem;
 }
 
+/* Mensaje cuando el usuario no tiene ninguna dirección guardada */
 .direcciones-vacio {
   color: var(--beige-dark);
   font-style: italic;
   margin-bottom: 1.5rem;
 }
 
-/* Lista de tarjetas */
+/* ─── Lista de tarjetas ───────────────────────────────────────── */
+
+/* Grid fluido: mínimo 260px por columna */
 .direcciones-lista {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -37,6 +42,7 @@
   margin-bottom: 1.5rem;
 }
 
+/* Tarjeta de cada dirección guardada */
 .direccion-card {
   background: var(--white);
   border-radius: 10px;
@@ -53,7 +59,7 @@
   color: var(--text-dark);
 }
 
-/* Badge principal */
+/* Badge dorado que indica la dirección principal */
 .badge-principal {
   background: var(--gold);
   color: var(--white);
@@ -65,7 +71,7 @@
   margin-bottom: 0.4rem;
 }
 
-/* Botón eliminar */
+/* Botón de eliminar con borde rojo; se rellena al hacer hover */
 .btn-eliminar {
   margin-top: 0.8rem;
   padding: 0.4rem 0.8rem;
@@ -84,7 +90,7 @@
   color: var(--white);
 }
 
-/* Botón nueva dirección */
+/* Botón para mostrar el formulario de nueva dirección */
 .btn-nueva {
   padding: 0.6rem 1.4rem;
   background: var(--gold);
@@ -101,7 +107,9 @@
   background: var(--beige-dark);
 }
 
-/* Formulario */
+/* ─── Formulario nueva dirección ──────────────────────────────── */
+
+/* Grid de 2 columnas para los campos del formulario */
 .direcciones-form {
   background: var(--white);
   border-radius: 10px;
@@ -122,12 +130,13 @@
   width: 100%;
 }
 
+/* El borde cambia a dorado al enfocar el campo */
 .direcciones-form input:focus {
   outline: none;
   border-color: var(--gold);
 }
 
-/* Checkbox ocupa las 2 columnas */
+/* El checkbox de "dirección principal" ocupa las 2 columnas */
 .checkbox-principal {
   grid-column: span 2;
   display: flex;
@@ -137,7 +146,7 @@
   cursor: pointer;
 }
 
-/* Botón guardar ocupa las 2 columnas */
+/* El botón de guardar ocupa las 2 columnas */
 .direcciones-form button[type="submit"] {
   grid-column: span 2;
   padding: 0.7rem;
@@ -154,7 +163,8 @@
   background: var(--beige-dark);
 }
 
-/* ─── Responsive ─── */
+/* ─── Responsive ──────────────────────────────────────────────── */
+
 @media (max-width: 768px) {
   .direcciones-contenido {
     padding: 0 1rem;
@@ -165,25 +175,23 @@
     font-size: 1.5rem;
   }
 
-  /* Cards en 1 columna */
+  /* Cards en 1 columna en móvil */
   .direcciones-lista {
     grid-template-columns: 1fr;
   }
 
-  /* Formulario en 1 columna */
+  /* Formulario en 1 columna en móvil */
   .direcciones-form {
     grid-template-columns: 1fr;
     padding: 1rem;
   }
 
-  .checkbox-principal {
-    grid-column: span 1;
-  }
-
+  .checkbox-principal,
   .direcciones-form button[type="submit"] {
     grid-column: span 1;
   }
 
+  /* El botón de nueva dirección ocupa todo el ancho */
   .btn-nueva {
     width: 100%;
     text-align: center;

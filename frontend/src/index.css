@@ -1,7 +1,9 @@
 /* Autor: Mario Miranda */
 /* index.css - Estilos globales y variables CSS para Scripe */
 
+/* ─── Variables globales ──────────────────────────────────────── */
 :root {
+  /* Paleta de colores de la marca */
   --beige-light:  #F5F1E8;
   --beige-medium: #D4C5B0;
   --beige-dark:   #8B7355;
@@ -9,10 +11,14 @@
   --text-dark:    #2C2C2C;
   --white:        #FFFFFF;
 
+  /* Tipografías — display para títulos, body para textos */
   --font-title: 'Playfair Display', serif;
   --font-body:  'Inter', sans-serif;
 }
 
+/* ─── Reset ───────────────────────────────────────────────────── */
+
+/* Elimina márgenes y paddings por defecto; box-sizing consistente */
 *,
 *::before,
 *::after {
@@ -21,9 +27,12 @@
   box-sizing: border-box;
 }
 
+/* Scroll suave al navegar a anclas */
 html {
   scroll-behavior: smooth;
 }
+
+/* ─── Base ────────────────────────────────────────────────────── */
 
 body {
   background-color: var(--beige-light);
@@ -34,11 +43,13 @@ body {
   min-height: 100vh;
 }
 
+/* Los enlaces heredan el color del padre y no tienen subrayado por defecto */
 a {
-  color: inherit;
+  color: inherit; /* inherit: hereda el color del padre */
   text-decoration: none;
 }
 
+/* Formularios heredan la tipografía del body */
 button,
 input,
 textarea,
@@ -47,12 +58,14 @@ select {
   color: inherit;
 }
 
+/* Las imágenes son bloque y nunca desbordan su contenedor */
 img {
   display: block;
   max-width: 100%;
   height: auto;
 }
 
+/* Listas sin viñetas por defecto */
 ul {
   list-style: none;
 }

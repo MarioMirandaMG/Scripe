@@ -1,6 +1,7 @@
 /* Autor: Mario Miranda */
 /* Login.css - Estilos para la página de inicio de sesión */
 
+/* Página en columna para que el footer quede pegado al fondo */
 .login {
   min-height: 100vh;
   display: flex;
@@ -8,6 +9,7 @@
   background-color: var(--beige-light);
 }
 
+/* Centra el formulario vertical y horizontalmente */
 .login-contenido {
   flex: 1;
   display: flex;
@@ -24,6 +26,7 @@
   margin-bottom: 2rem;
 }
 
+/* Formulario en columna con ancho máximo de 400px */
 .login-contenido form {
   display: flex;
   flex-direction: column;
@@ -43,10 +46,12 @@
   transition: border-color 0.2s;
 }
 
+/* El borde se oscurece al enfocar el campo */
 .login-contenido input:focus {
   border-color: var(--beige-dark);
 }
 
+/* Botón de submit — cambia a dorado al hacer hover */
 .login-contenido button {
   background-color: var(--beige-dark);
   color: var(--white);
@@ -63,6 +68,7 @@
   background-color: var(--gold);
 }
 
+/* Texto de "¿No tienes cuenta? Regístrate" */
 .login-contenido p {
   margin-top: 1.5rem;
   font-size: 0.9rem;
@@ -74,6 +80,7 @@
   text-decoration: underline;
 }
 
+/* Mensaje de error con borde izquierdo rojo para mayor visibilidad */
 .error {
   color: #b94040;
   font-size: 0.88rem;
@@ -84,8 +91,10 @@
   width: 100%;
 }
 
-/* ─── Responsive ─── */
+/* ─── Responsive ──────────────────────────────────────────────── */
+
 @media (max-width: 768px) {
+  /* En móvil el formulario se alinea arriba en lugar de al centro */
   .login-contenido {
     padding: 2rem 1rem;
     justify-content: flex-start;

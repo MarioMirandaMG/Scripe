@@ -4,19 +4,21 @@
 import { useAuth } from '../context/AuthContext'
 import './Footer.css'
 
+// Mostramos enlaces adicionales solo si el usuario está autenticado
 function Footer() {
   const { token } = useAuth()
 
   return (
     <footer className="footer">
       <div className="footer-contenido">
-        {/* Marca */}
+
+        {/* Nombre y slogan de la tienda */}
         <div className="footer-marca">
           <h3>Scripe</h3>
           <p>Bolígrafos artesanales, hechos con pasión.</p>
         </div>
 
-        {/* Enlaces */}
+        {/* Enlaces de navegación — los de usuario solo aparecen si hay sesión activa */}
         <div className="footer-enlaces">
           <h4>Navegación</h4>
           <ul>
@@ -31,6 +33,7 @@ function Footer() {
             )}
           </ul>
         </div>
+
       </div>
 
       {/* Copyright */}

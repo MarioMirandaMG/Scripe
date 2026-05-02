@@ -1,6 +1,8 @@
 /* Autor: Mario Miranda */
-/* Footer.css - Estilos para el pie de página */
+/* Footer.css — Estilos para el pie de página */
 
+/* Contenedor principal del footer.
+   margin-top: auto lo empuja al final de la página en layouts flex/grid */
 .footer {
   background-color: var(--beige-dark);
   color: var(--white);
@@ -8,6 +10,8 @@
   margin-top: auto;
 }
 
+/* Distribuimos marca y enlaces en fila.
+   max-width + margin: auto centra el contenido en pantallas grandes */
 .footer-contenido {
   display: flex;
   justify-content: space-between;
@@ -15,9 +19,11 @@
   max-width: 1200px;
   margin: 0 auto;
   padding-bottom: 1.5rem;
+  /* Línea dorada que separa el cuerpo del copyright */
   border-bottom: 1px solid var(--gold);
 }
 
+/* Nombre de la tienda con tipografía de display y espaciado entre letras */
 .footer-marca h3 {
   font-family: var(--font-title);
   font-size: 1.5rem;
@@ -25,17 +31,20 @@
   margin-bottom: 0.5rem;
 }
 
+/* Slogan en tono más suave para no competir con el nombre */
 .footer-marca p {
   font-size: 0.85rem;
   color: var(--beige-medium);
 }
 
+/* Título de cada columna de enlaces resaltado en dorado */
 .footer-enlaces h4 {
   font-family: var(--font-title);
   margin-bottom: 0.75rem;
   color: var(--gold);
 }
 
+/* Lista apilada verticalmente sin viñetas */
 .footer-enlaces ul {
   list-style: none;
   display: flex;
@@ -43,6 +52,7 @@
   gap: 0.4rem;
 }
 
+/* Enlace sin subrayado con transición suave al hacer hover */
 .footer-enlaces a {
   color: var(--white);
   text-decoration: none;
@@ -50,10 +60,12 @@
   transition: color 0.2s;
 }
 
+/* Al pasar el ratón, el enlace adquiere el color dorado */
 .footer-enlaces a:hover {
   color: var(--gold);
 }
 
+/* Copyright centrado con texto pequeño y apagado */
 .footer-inferior {
   text-align: center;
   padding-top: 1rem;

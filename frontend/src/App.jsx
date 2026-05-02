@@ -20,27 +20,21 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Página principal */}
-        <Route path="/" element={<Home />} />
-        {/* Catálogo de productos */}
-        <Route path="/catalogo" element={<Catalogo />} />
-        {/* Detalle de un producto */}
+        {/* ── Rutas públicas ─────────────────────────────────── */}
+        <Route path="/"            element={<Home />} />
+        <Route path="/catalogo"    element={<Catalogo />} />
         <Route path="/producto/:id" element={<DetalleProducto />} />
-        {/* Login */}
-        <Route path="/login" element={<Login />} />
-        {/* Registro */}
-        <Route path="/register" element={<Register />} />
-        {/* Carrito - protegida */}
-        <Route path="/carrito" element={<RutaPrivada><Carrito /></RutaPrivada>} />
-        {/* Mis pedidos - protegida */}
-        <Route path="/mis-pedidos" element={<RutaPrivada><MisPedidos /></RutaPrivada>} />
-        {/* Mis direcciones - protegida */}
+        <Route path="/login"       element={<Login />} />
+        <Route path="/register"    element={<Register />} />
+
+        {/* ── Rutas privadas (requieren sesión iniciada) ──────── */}
+        <Route path="/carrito"         element={<RutaPrivada><Carrito /></RutaPrivada>} />
+        <Route path="/mis-pedidos"     element={<RutaPrivada><MisPedidos /></RutaPrivada>} />
         <Route path="/mis-direcciones" element={<RutaPrivada><MisDirecciones /></RutaPrivada>} />
-        {/* Checkout - protegida */}
-        <Route path="/checkout" element={<RutaPrivada><Checkout /></RutaPrivada>} />
-        {/* Confirmación del pedido - protegida */}
-        <Route path="/confirmacion" element={<RutaPrivada><Confirmacion /></RutaPrivada>} />
-        {/* Panel de administración - solo admins */}
+        <Route path="/checkout"        element={<RutaPrivada><Checkout /></RutaPrivada>} />
+        <Route path="/confirmacion"    element={<RutaPrivada><Confirmacion /></RutaPrivada>} />
+
+        {/* ── Ruta de administración (requieren rol admin) ────── */}
         <Route path="/admin" element={<RutaAdmin><AdminPanel /></RutaAdmin>} />
       </Routes>
     </BrowserRouter>

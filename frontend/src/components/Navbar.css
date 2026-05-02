@@ -1,6 +1,8 @@
 /* Autor: Mario Miranda */
 /* Navbar.css - Estilos para la barra de navegación */
 
+/* Barra principal: logo a la izquierda, menú a la derecha.
+   z-index alto para que quede por encima del resto de contenido */
 .navbar {
   display: flex;
   align-items: center;
@@ -11,6 +13,8 @@
   z-index: 100;
 }
 
+/* El logo es un enlace, lo convertimos en flex para alinear
+   imagen y texto en la misma fila */
 .navbar-logo a {
   display: flex;
   align-items: center;
@@ -24,6 +28,7 @@
   display: block;
 }
 
+/* Nombre de la tienda con tipografía de display */
 .navbar-marca {
   font-family: var(--font-title);
   font-size: 1.8rem;
@@ -31,6 +36,7 @@
   letter-spacing: 2px;
 }
 
+/* Slogan pequeño debajo del nombre */
 .navbar-tagline {
   font-family: var(--font-body);
   font-size: 0.7rem;
@@ -38,7 +44,9 @@
   letter-spacing: 1px;
 }
 
-/* ─── Hamburguesa ─── */
+/* ─── Hamburguesa ─────────────────────────────────────────────── */
+
+/* Oculto en desktop; se muestra solo en móvil (ver responsive) */
 .navbar-hamburguesa {
   display: none;
   flex-direction: column;
@@ -51,6 +59,7 @@
   z-index: 200;
 }
 
+/* Cada línea de la hamburguesa */
 .navbar-hamburguesa span {
   display: block;
   width: 24px;
@@ -61,6 +70,7 @@
   transform-origin: center;
 }
 
+/* Animación de la hamburguesa → X al abrir el menú */
 .navbar-hamburguesa.activo span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
@@ -71,7 +81,9 @@
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ─── Overlay ─── */
+/* ─── Overlay ─────────────────────────────────────────────────── */
+
+/* Fondo oscuro semitransparente que aparece detrás del menú móvil */
 .navbar-overlay {
   position: fixed;
   inset: 0;
@@ -79,7 +91,9 @@
   z-index: 98;
 }
 
-/* ─── Menú desktop ─── */
+/* ─── Menú desktop ────────────────────────────────────────────── */
+
+/* Agrupa enlaces de navegación y acciones (carrito, botones) */
 .navbar-menu {
   display: flex;
   align-items: center;
@@ -88,6 +102,7 @@
   justify-content: flex-end;
 }
 
+/* Lista de enlaces principales */
 .navbar-enlaces {
   list-style: none;
   display: flex;
@@ -107,12 +122,14 @@
   color: var(--gold);
 }
 
+/* Contenedor del carrito y botones de sesión */
 .navbar-derecha {
   display: flex;
   align-items: center;
   gap: 1.5rem;
 }
 
+/* Icono del carrito */
 .navbar-carrito a {
   color: var(--white);
   text-decoration: none;
@@ -126,6 +143,7 @@
   color: var(--gold);
 }
 
+/* Burbuja dorada con el número de artículos en el carrito */
 .navbar-carrito-count {
   background: var(--gold);
   color: var(--white);
@@ -136,6 +154,7 @@
   margin-left: 0.3rem;
 }
 
+/* Botones de login / registro con borde blanco */
 .navbar-btn {
   color: var(--white);
   background: none;
@@ -148,26 +167,31 @@
   text-decoration: none;
 }
 
+/* Hover invertido: fondo blanco con texto oscuro */
 .navbar-btn:hover {
   background-color: var(--white);
   color: var(--beige-dark);
 }
 
+/* Reset global de enlaces para heredar el color del contenedor */
 a {
   color: inherit;
   text-decoration: none;
 }
 
-/* ─── Responsive ─── */
+/* ─── Responsive ──────────────────────────────────────────────── */
+
 @media (max-width: 768px) {
   .navbar {
     padding: 1rem 1.2rem;
   }
 
+  /* Mostramos el botón hamburguesa en móvil */
   .navbar-hamburguesa {
     display: flex;
   }
 
+  /* El menú se oculta fuera de pantalla (derecha) y se desliza al abrirse */
   .navbar-menu {
     position: fixed;
     top: 0;
@@ -186,10 +210,12 @@ a {
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2);
   }
 
+  /* Clase que activa el slide-in del menú */
   .navbar-menu.abierto {
     right: 0;
   }
 
+  /* En móvil los enlaces se apilan verticalmente */
   .navbar-enlaces {
     flex-direction: column;
     gap: 1.2rem;
@@ -199,6 +225,7 @@ a {
     font-size: 1.1rem;
   }
 
+  /* Carrito y botones también en columna */
   .navbar-derecha {
     flex-direction: column;
     align-items: flex-start;

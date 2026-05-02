@@ -1,7 +1,9 @@
 /* Autor: Mario Miranda */
 /* AdminPanel.css - Estilos del panel de administración */
 
-/* ─── Layout ─── */
+/* ─── Layout ──────────────────────────────────────────────────── */
+
+/* Ocupa toda la altura de la pantalla con footer pegado al fondo */
 .admin {
   min-height: 100vh;
   display: flex;
@@ -9,6 +11,7 @@
   background-color: var(--beige-light);
 }
 
+/* Contenedor central con ancho máximo y centrado */
 .admin-contenido {
   flex: 1;
   max-width: 1100px;
@@ -17,6 +20,7 @@
   width: 100%;
 }
 
+/* Título de sección con tipografía de display */
 .admin-contenido h2 {
   font-family: var(--font-title);
   font-size: 2rem;
@@ -24,7 +28,9 @@
   margin-bottom: 1.5rem;
 }
 
-/* ─── Tabs ─── */
+/* ─── Tabs ────────────────────────────────────────────────────── */
+
+/* Fila de pestañas para alternar entre Productos, Pedidos y Stats */
 .admin-tabs {
   display: flex;
   gap: 0.5rem;
@@ -46,13 +52,16 @@
   background: var(--beige-medium);
 }
 
+/* Pestaña activa resaltada en dorado */
 .admin-tabs button.activo {
   background: var(--gold);
   border-color: var(--gold);
   color: var(--white);
 }
 
-/* ─── Tabla ─── */
+/* ─── Tabla ───────────────────────────────────────────────────── */
+
+/* Tabla principal con bordes redondeados y sombra suave */
 .admin-tabla {
   width: 100%;
   border-collapse: collapse;
@@ -63,6 +72,7 @@
   table-layout: auto;
 }
 
+/* Cabecera con fondo oscuro */
 .admin-tabla thead {
   background: var(--beige-dark);
   color: var(--white);
@@ -84,6 +94,7 @@
   border-top: 1px solid var(--beige-light);
 }
 
+/* Filas alternas con fondo beige para mejorar la lectura */
 .admin-tabla tbody tr:nth-child(even) {
   background: var(--beige-light);
 }
@@ -92,7 +103,9 @@
   background: #ede8df;
 }
 
-/* ─── Select estado ─── */
+/* ─── Select estado ───────────────────────────────────────────── */
+
+/* Selector del estado del pedido dentro de la tabla */
 .admin-tabla select {
   padding: 0.3rem 0.6rem;
   border: 1px solid var(--beige-medium);
@@ -102,7 +115,9 @@
   cursor: pointer;
 }
 
-/* ─── Stock ─── */
+/* ─── Stock ───────────────────────────────────────────────────── */
+
+/* Controles + / - para ajustar el stock de un producto */
 .stock-acciones {
   display: flex;
   align-items: center;
@@ -124,24 +139,29 @@
   transition: all 0.2s;
 }
 
+/* Hover invertido: fondo oscuro con texto blanco */
 .stock-acciones button:hover {
   background: var(--beige-dark);
   color: var(--white);
 }
 
+/* Número de stock centrado con ancho mínimo para evitar saltos */
 .stock-acciones span {
   min-width: 24px;
   text-align: center;
   font-weight: 600;
 }
 
-/* ─── Acciones producto ─── */
+/* ─── Acciones producto ───────────────────────────────────────── */
+
+/* Fila de botones Editar / Eliminar por cada producto */
 .producto-acciones {
   display: flex;
   gap: 0.5rem;
   align-items: center;
 }
 
+/* Botón de edición con fondo beige neutro */
 .btn-editar {
   padding: 0.35rem 0.9rem;
   background: var(--beige-medium);
@@ -160,6 +180,7 @@
   color: var(--white);
 }
 
+/* Botón de eliminación con borde rojo; se rellena al hacer hover */
 .btn-eliminar {
   padding: 0.35rem 0.9rem;
   background: none;
@@ -178,7 +199,9 @@
   color: var(--white);
 }
 
-/* ─── Modal ─── */
+/* ─── Modal ───────────────────────────────────────────────────── */
+
+/* Fondo oscuro semitransparente que cubre toda la pantalla */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -189,6 +212,7 @@
   z-index: 999;
 }
 
+/* Tarjeta del modal centrada con sombra pronunciada */
 .modal {
   background: var(--white);
   padding: 2rem;
@@ -208,6 +232,7 @@
   margin-bottom: 0.5rem;
 }
 
+/* Etiquetas en mayúsculas pequeñas para los campos del formulario */
 .modal label {
   font-size: 0.85rem;
   color: var(--beige-dark);
@@ -227,23 +252,27 @@
   transition: border 0.2s;
 }
 
+/* Al enfocar, el borde se oscurece para indicar el campo activo */
 .modal input:focus,
 .modal textarea:focus {
   outline: none;
   border-color: var(--beige-dark);
 }
 
+/* El textarea es redimensionable verticalmente */
 .modal textarea {
   min-height: 80px;
   resize: vertical;
 }
 
+/* Fila de botones Guardar / Cancelar */
 .modal-btns {
   display: flex;
   gap: 1rem;
   margin-top: 0.5rem;
 }
 
+/* Botón principal en dorado */
 .btn-guardar {
   background: var(--gold);
   color: var(--white);
@@ -260,6 +289,7 @@
   background: var(--beige-dark);
 }
 
+/* Botón secundario con borde sin relleno */
 .btn-cancelar {
   background: none;
   border: 1px solid var(--beige-dark);
@@ -276,7 +306,9 @@
   color: var(--white);
 }
 
-/* ─── Stats ─── */
+/* ─── Stats ───────────────────────────────────────────────────── */
+
+/* Grid de tarjetas de estadísticas con columnas fluidas */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -284,6 +316,7 @@
   margin-top: 1.5rem;
 }
 
+/* Tarjeta individual centrada con icono, valor y etiqueta */
 .stat-card {
   background: #fff;
   border: 1px solid #e0e0e0;
@@ -296,12 +329,13 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.06);
 }
 
-.stat-icon { font-size: 1.8rem; }
+.stat-icon  { font-size: 1.8rem; }
 .stat-label { font-size: 0.8rem; color: #888; text-align: center; }
 .stat-valor { font-size: 1.4rem; font-weight: 700; color: #222; }
-.stat-sub { font-size: 0.85rem; color: #555; }
+.stat-sub   { font-size: 0.85rem; color: #555; }
 
-/* ─── Responsive ─── */
+/* ─── Responsive ──────────────────────────────────────────────── */
+
 @media (max-width: 768px) {
   .admin-contenido {
     padding: 0 1rem;
@@ -312,6 +346,7 @@
     font-size: 1.5rem;
   }
 
+  /* Las tabs se envuelven si no caben en una sola fila */
   .admin-tabs {
     flex-wrap: wrap;
   }
@@ -321,20 +356,21 @@
     font-size: 0.85rem;
   }
 
-  /* Tabla scrollable horizontalmente */
+  /* Tabla con scroll horizontal para evitar desbordamiento */
   .admin-tabla {
     display: block;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Modal ocupa casi toda la pantalla */
+  /* Modal ocupa casi toda la pantalla en móvil */
   .modal {
     padding: 1.5rem 1rem;
     margin: 1rem;
     max-width: 100%;
   }
 
+  /* Botones del modal en columna para facilitar el toque */
   .modal-btns {
     flex-direction: column;
   }

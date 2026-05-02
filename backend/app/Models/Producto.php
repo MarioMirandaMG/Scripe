@@ -1,40 +1,53 @@
 <?php
 // Autor: Mario Miranda
-// Archivo Producto
+// Archivo: Producto.php
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Modelo que representa la tabla productos.
- * Contiene la información de los bolígrafos disponibles en la tienda.
+ * Modelo que representa la tabla productos en la base de datos.
+ *
+ * Contiene la información de los bolígrafos artesanales
+ * disponibles en el catálogo de la tienda Scripe.
  */
-class Producto extends Model{
-
-    // Definimos los campos que se pueden rellenar (mass assigment)
+class Producto extends Model
+{
+    /**
+     * Campos permitidos para asignación masiva (mass assignment).
+     *
+     * @var array<string>
+     */
     protected $fillable = [
         'nombre',
         'descripcion',
         'precio',
         'stock',
-        'categoria_id'
+        'categoria_id',
+        'imagen'
     ];
 
     /**
-     * Relación N:1
-     * Cada producto pertenece a una categoría.
+     * Relación N:1 con el modelo Categoria.
+     *
+     * Cada producto pertenece a una única categoría.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function categoria(){
-            return $this->belongsTo(Categoria::class);
-        }
-    
+        return $this->belongsTo(Categoria::class);
+    }
+
     /**
-     * Relación N:M
+     * Relación N:M con el modelo Pedido.
+     *
      * Un producto puede estar en varios pedidos.
-     * Esta relación se gestiona mediante la tabla intermedia contenido_pedidos.
+     * La relación se gestiona mediante la tabla intermedia contenido_pedidos.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function pedidos(){
-            return $this->belongsToMany(Pedido::class,'contenido_pedidos');
-        }
+        return $this->belongsToMany(Pedido::class, 'contenido_pedidos');
+    }
 }

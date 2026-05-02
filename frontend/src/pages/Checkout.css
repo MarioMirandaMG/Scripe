@@ -1,6 +1,7 @@
 /* Autor: Mario Miranda */
 /* Checkout.css */
 
+/* Página completa en columna para que el footer quede pegado al fondo */
 .checkout-page {
   min-height: 100vh;
   display: flex;
@@ -8,6 +9,7 @@
   background-color: var(--beige-light);
 }
 
+/* Contenedor central con ancho máximo */
 .checkout-container {
   flex: 1;
   max-width: 700px;
@@ -23,6 +25,7 @@
   color: var(--text-dark);
 }
 
+/* Tarjeta blanca para cada bloque del formulario (resumen, dirección, etc.) */
 .checkout-section {
   background: var(--white);
   border-radius: 10px;
@@ -37,6 +40,7 @@
   margin-bottom: 1rem;
 }
 
+/* Fila de cada producto del resumen con nombre y precio a los extremos */
 .checkout-item {
   display: flex;
   justify-content: space-between;
@@ -45,12 +49,14 @@
   font-size: 0.95rem;
 }
 
+/* Total del pedido alineado a la derecha */
 .checkout-total {
   text-align: right;
   margin-top: 1rem;
   font-size: 1.1rem;
 }
 
+/* Selector de dirección de envío */
 .checkout-section select {
   width: 100%;
   padding: 0.6rem;
@@ -60,12 +66,14 @@
   margin-bottom: 0.8rem;
 }
 
+/* Texto informativo de la dirección seleccionada */
 .checkout-direccion-info {
   color: var(--beige-dark);
   font-size: 0.9rem;
   margin-top: 0.5rem;
 }
 
+/* Botón de confirmar pedido — cambia a dorado al hacer hover */
 .checkout-btn {
   width: 100%;
   background-color: var(--beige-dark);
@@ -84,7 +92,8 @@
   background-color: var(--gold);
 }
 
-/* ─── Responsive ─── */
+/* ─── Responsive ──────────────────────────────────────────────── */
+
 @media (max-width: 768px) {
   .checkout-container {
     padding: 0 1rem;
@@ -100,6 +109,7 @@
     padding: 1rem;
   }
 
+  /* En móvil el total se alinea a la izquierda para mejor lectura */
   .checkout-total {
     text-align: left;
   }

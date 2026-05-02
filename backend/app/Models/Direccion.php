@@ -1,17 +1,34 @@
 <?php
 // Autor: Mario Miranda
-// Archivo: Direccion.php - Modelo de direcciones de envío
+// Archivo: Direccion.php
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Modelo que representa la tabla direcciones en la base de datos.
+ *
+ * Gestiona las direcciones de envío asociadas a cada usuario
+ * registrado en la tienda Scripe.
+ */
 class Direccion extends Model
 {
-    // Nombre exacto de la tabla en la BD (Laravel pluralizaría mal en inglés)
+    /**
+     * Nombre exacto de la tabla en la base de datos.
+     *
+     * Se especifica manualmente porque Laravel pluralizaría
+     * incorrectamente "Direccion" en inglés.
+     *
+     * @var string
+     */
     protected $table = 'direcciones';
 
-    // Campos que se pueden rellenar masivamente
+    /**
+     * Campos permitidos para asignación masiva (mass assignment).
+     *
+     * @var array<string>
+     */
     protected $fillable = [
         'usuario_id',
         'direccion',
@@ -20,7 +37,14 @@ class Direccion extends Model
         'es_principal'
     ];
 
-    // Relación con el usuario al que pertenece la dirección
+    /**
+     * Relación N:1 con el modelo User.
+     *
+     * Cada dirección pertenece a un único usuario.
+     * Se indica explícitamente la clave foránea 'usuario_id'.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function usuario() {
         return $this->belongsTo(User::class, 'usuario_id');
     }

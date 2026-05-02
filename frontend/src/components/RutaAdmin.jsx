@@ -4,12 +4,13 @@
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
+/**
+ * children es el componente que se pasa entre las etiquetas de RutaAdmin.
+ * Si el usuario no tiene rol 'admin', redirige al inicio.
+ */
 function RutaAdmin({ children }) {
   const { rol } = useAuth()
-
-  if (rol !== 'admin') return <Navigate to="/" />
-
-  return children
+  return rol === 'admin' ? children : <Navigate to="/" replace />
 }
 
 export default RutaAdmin

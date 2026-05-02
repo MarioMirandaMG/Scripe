@@ -1,3 +1,4 @@
+/* Botón contador con estilo de acento — borde aparece al hacer hover */
 .counter {
   font-size: 16px;
   padding: 5px 10px;
@@ -11,15 +12,19 @@
   &:hover {
     border-color: var(--accent-border);
   }
+
+  /* Anillo de foco accesible para navegación por teclado */
   &:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
 }
 
+/* Hero con logos apilados usando posicionamiento absoluto y transformaciones 3D */
 .hero {
   position: relative;
 
+  /* Las tres capas se centran horizontalmente */
   .base,
   .framework,
   .vite {
@@ -27,6 +32,7 @@
     margin: 0 auto;
   }
 
+  /* Logo base — capa inferior */
   .base {
     width: 170px;
     position: relative;
@@ -38,6 +44,7 @@
     position: absolute;
   }
 
+  /* Logo del framework — rotado en 3D sobre la capa base */
   .framework {
     z-index: 1;
     top: 34px;
@@ -46,6 +53,7 @@
       scale(1.4);
   }
 
+  /* Logo de Vite — más pequeño y ligeramente por debajo */
   .vite {
     z-index: 0;
     top: 107px;
@@ -56,6 +64,7 @@
   }
 }
 
+/* Contenedor central con flexbox — reduce padding y gap en tablet */
 #center {
   display: flex;
   flex-direction: column;
@@ -70,11 +79,13 @@
   }
 }
 
+/* Sección de próximos pasos dividida en columnas con borde superior */
 #next-steps {
   display: flex;
   border-top: 1px solid var(--border);
   text-align: left;
 
+  /* Cada columna ocupa el mismo espacio */
   & > div {
     flex: 1 1 0;
     padding: 32px;
@@ -89,21 +100,25 @@
     height: 22px;
   }
 
+  /* En tablet las columnas se apilan y el texto se centra */
   @media (max-width: 1024px) {
     flex-direction: column;
     text-align: center;
   }
 }
 
+/* Columna de documentación — borde derecho como separador visual */
 #docs {
   border-right: 1px solid var(--border);
 
+  /* En tablet el borde derecho se convierte en borde inferior */
   @media (max-width: 1024px) {
     border-right: none;
     border-bottom: 1px solid var(--border);
   }
 }
 
+/* Lista de enlaces sociales / recursos */
 #next-steps ul {
   list-style: none;
   padding: 0;
@@ -115,6 +130,7 @@
     height: 18px;
   }
 
+  /* Cada enlace es una píldora con transición de sombra al hacer hover */
   a {
     color: var(--text-h);
     font-size: 16px;
@@ -136,6 +152,7 @@
     }
   }
 
+  /* En tablet los enlaces se envuelven en 2 columnas y se centran */
   @media (max-width: 1024px) {
     margin-top: 20px;
     flex-wrap: wrap;
@@ -153,6 +170,7 @@
   }
 }
 
+/* Espaciador decorativo con borde superior — se reduce en tablet */
 #spacer {
   height: 88px;
   border-top: 1px solid var(--border);
@@ -161,6 +179,7 @@
   }
 }
 
+/* Marcas de esquina usando pseudo-elementos — simulan ticks de regla */
 .ticks {
   position: relative;
   width: 100%;
@@ -173,10 +192,13 @@
     border: 5px solid transparent;
   }
 
+  /* Tick izquierdo */
   &::before {
     left: 0;
     border-left-color: var(--border);
   }
+
+  /* Tick derecho */
   &::after {
     right: 0;
     border-right-color: var(--border);

@@ -1,12 +1,14 @@
 /* Autor: Mario Miranda */
 /* MisPedidos.css */
 
+/* Página en columna para que el footer quede pegado al fondo */
 .mis-pedidos-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
+/* Contenedor central con ancho máximo */
 .mis-pedidos-container {
   flex: 1;
   max-width: 900px;
@@ -20,24 +22,28 @@
   margin-bottom: 2rem;
 }
 
+/* Mensaje centrado cuando el usuario no tiene pedidos */
 .sin-pedidos {
   text-align: center;
   color: var(--beige-dark);
   margin-top: 3rem;
 }
 
+/* Lista de pedidos en columna */
 .pedidos-lista {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
+/* Tarjeta de pedido con borde y overflow hidden para respetar el border-radius */
 .pedido-card {
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
 }
 
+/* Cabecera oscura con ID, fecha y estado del pedido */
 .pedido-header {
   display: flex;
   justify-content: space-between;
@@ -49,6 +55,7 @@
   gap: 0.5rem;
 }
 
+/* Badge de estado con forma de píldora */
 .pedido-estado {
   padding: 0.2rem 0.7rem;
   border-radius: 20px;
@@ -56,10 +63,12 @@
   font-weight: bold;
 }
 
+/* Colores semánticos por estado del pedido */
 .estado-pendiente { background-color: #f0ad4e; color: #fff; }
 .estado-enviado   { background-color: #5bc0de; color: #fff; }
 .estado-entregado { background-color: #5cb85c; color: #fff; }
 
+/* Lista de productos dentro del pedido */
 .pedido-productos {
   padding: 1rem 1.2rem;
   display: flex;
@@ -67,6 +76,7 @@
   gap: 0.8rem;
 }
 
+/* Fila de cada producto: imagen + nombre + cantidad */
 .pedido-item {
   display: flex;
   align-items: center;
@@ -80,7 +90,8 @@
   border-radius: 4px;
 }
 
-/* ─── Responsive ─── */
+/* ─── Responsive ──────────────────────────────────────────────── */
+
 @media (max-width: 768px) {
   .mis-pedidos-container {
     padding: 0 1rem;
@@ -92,6 +103,7 @@
     margin-bottom: 1.2rem;
   }
 
+  /* La cabecera se apila en columna en móvil */
   .pedido-header {
     flex-direction: column;
     align-items: flex-start;
@@ -106,6 +118,7 @@
     gap: 0.8rem;
   }
 
+  /* Imagen más pequeña en móvil */
   .pedido-item img {
     width: 40px;
     height: 40px;

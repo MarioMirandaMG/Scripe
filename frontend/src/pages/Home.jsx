@@ -11,6 +11,7 @@ import './Home.css'
 function Home() {
   const [productos, setProductos] = useState([])
 
+  // Cargamos solo los 3 primeros productos para la sección de destacados
   useEffect(() => {
     getProductos()
       .then(res => setProductos(res.data.slice(0, 3)))
@@ -21,7 +22,7 @@ function Home() {
     <div className="home">
       <Navbar />
 
-      {/* Hero Banner */}
+      {/* Hero — presentación de la marca con CTA al catálogo */}
       <section className="hero">
         <div className="hero-texto">
           <h1>Bolígrafos artesanales únicos</h1>
@@ -30,14 +31,24 @@ function Home() {
         </div>
       </section>
 
-      {/* Productos destacados */}
+      {/* Productos destacados — muestra los 3 primeros del catálogo */}
       <section className="destacados">
         <h2>Productos Destacados</h2>
         <div className="destacados-grid">
           {productos.map(producto => (
-            <Link to={`/producto/${producto.id}`} key={producto.id} className="producto-card">
+            <Link
+              to={`/producto/${producto.id}`}
+              key={producto.id}
+              className="producto-card"
+              aria-label={`Ver detalle de ${producto.nombre}`}
+            >
               <div className="producto-imagen">
-                <img src={getImageUrl(producto.imagen)} alt={producto.nombre} />
+                {/* alt descriptivo para lectores de pantalla (WCAG nivel A) */}
+                <img
+                  src={getImageUrl(producto.imagen)}
+                  alt={`Fotografía de ${producto.nombre}`}
+                  loading="lazy"
+                />
               </div>
               <h3>{producto.nombre}</h3>
               <p>{producto.precio} €</p>

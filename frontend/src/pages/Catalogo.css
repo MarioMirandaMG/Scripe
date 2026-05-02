@@ -1,12 +1,14 @@
 /* Autor: Mario Miranda */
 /* Catalogo.css - Estilos para la página del catálogo */
 
+/* Página en columna para que el footer quede pegado al fondo */
 .catalogo {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
+/* Layout principal: sidebar de filtros a la izquierda y grid de productos a la derecha */
 .catalogo-contenido {
   display: flex;
   gap: 2rem;
@@ -17,7 +19,9 @@
   flex: 1;
 }
 
-/* Filtros */
+/* ─── Filtros ─────────────────────────────────────────────────── */
+
+/* Sidebar de filtros con ancho fijo */
 .filtros {
   width: 220px;
   min-width: 220px;
@@ -34,6 +38,7 @@
   margin-bottom: 1.5rem;
 }
 
+/* Cada bloque de filtro (categoría, precio, stock) */
 .filtro-grupo {
   margin-bottom: 1.5rem;
 }
@@ -45,6 +50,7 @@
   margin-bottom: 0.75rem;
 }
 
+/* Lista de opciones de categoría sin viñetas */
 .filtro-grupo ul {
   list-style: none;
   display: flex;
@@ -52,6 +58,7 @@
   gap: 0.5rem;
 }
 
+/* Label clickable que engloba el input y el texto */
 .filtro-grupo label {
   display: flex;
   align-items: center;
@@ -60,6 +67,7 @@
   cursor: pointer;
 }
 
+/* Input de precio máximo a ancho completo */
 .filtro-precio {
   width: 100%;
   padding: 0.5rem;
@@ -68,7 +76,9 @@
   font-size: 0.9rem;
 }
 
-/* Grid de productos */
+/* ─── Grid de productos ───────────────────────────────────────── */
+
+/* Grid de 2 columnas que ocupa el espacio restante del layout */
 .productos-grid {
   flex: 1;
   display: grid;
@@ -77,6 +87,7 @@
   align-content: start;
 }
 
+/* Tarjeta de producto — sube ligeramente al hacer hover */
 .producto-card {
   background-color: var(--white);
   text-decoration: none;
@@ -89,6 +100,7 @@
   transform: translateY(-4px);
 }
 
+/* Imagen con altura fija y recorte para mantener proporción */
 .producto-imagen img {
   width: 100%;
   height: 200px;
@@ -107,32 +119,36 @@
   font-weight: 500;
 }
 
+/* Mensaje cuando ningún producto pasa los filtros */
 .sin-productos {
   color: var(--beige-dark);
   font-style: italic;
 }
 
-/* ─── Responsive ─── */
+/* ─── Responsive ──────────────────────────────────────────────── */
+
 @media (max-width: 768px) {
+  /* En móvil el layout pasa a columna: filtros arriba, productos abajo */
   .catalogo-contenido {
     flex-direction: column;
     padding: 1rem;
     gap: 1rem;
   }
 
-  /* Filtros se vuelven ancho completo y colapsables */
+  /* Filtros ocupan el ancho completo */
   .filtros {
     width: 100%;
     min-width: unset;
   }
 
-  /* Grid pasa a 1 columna */
+  /* Grid pasa a 1 columna en móvil */
   .productos-grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 480px) {
+  /* Imagen más baja en pantallas muy pequeñas */
   .producto-imagen img {
     height: 160px;
   }

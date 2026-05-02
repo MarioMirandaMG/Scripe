@@ -9,8 +9,10 @@ import './MisPedidos.css'
 
 function MisPedidos() {
   const [pedidos, setPedidos] = useState([])
+  // Controla el estado de carga para mostrar feedback al usuario
   const [cargando, setCargando] = useState(true)
 
+  // Cargamos el historial de pedidos del usuario al montar el componente
   useEffect(() => {
     getPedidos()
       .then(res => setPedidos(res.data))
@@ -24,28 +26,33 @@ function MisPedidos() {
       <main className="mis-pedidos-container">
         <h1>Mis pedidos</h1>
 
+        {/* Tres estados posibles: cargando, sin pedidos, o lista de pedidos */}
         {cargando ? (
-          <p>Cargando...</p>
+          <p aria-live="polite">Cargando...</p>
         ) : pedidos.length === 0 ? (
           <p className="sin-pedidos">Todavía no has realizado ningún pedido 😊</p>
         ) : (
           <div className="pedidos-lista">
             {pedidos.map(pedido => (
-              <div className="pedido-card" key={pedido.id}>
+              <article className="pedido-card" key={pedido.id} aria-label={`Pedido número ${pedido.id}`}>
                 <div className="pedido-header">
                   <span>Pedido #{pedido.id}</span>
+                  {/* La clase CSS del estado se genera dinámicamente: estado-pendiente, estado-enviado, etc. */}
                   <span className={`pedido-estado estado-${pedido.estado.toLowerCase()}`}>
                     {pedido.estado}
                   </span>
                   <span>{new Date(pedido.created_at).toLocaleDateString('es-ES')}</span>
                   <span><strong>{pedido.total} €</strong></span>
                 </div>
+
+                {/* Productos incluidos en el pedido con imagen, nombre, cantidad y precio */}
                 <div className="pedido-productos">
                   {pedido.contenidos.map(item => (
                     <div className="pedido-item" key={item.id}>
                       <img
                         src={getImageUrl(item.producto.imagen)}
-                        alt={item.producto.nombre}
+                        alt={`Fotografía de ${item.producto.nombre}`}
+                        loading="lazy"
                       />
                       <span>{item.producto.nombre}</span>
                       <span>x{item.cantidad}</span>
@@ -53,7 +60,7 @@ function MisPedidos() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         )}

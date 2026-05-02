@@ -1,13 +1,16 @@
 /* Autor: Mario Miranda */
 /* Home.css - Estilos para la página principal */
 
+/* Página en columna para que el footer quede pegado al fondo */
 .home {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Hero */
+/* ─── Hero ────────────────────────────────────────────────────── */
+
+/* Sección principal con fondo beige y contenido centrado */
 .hero {
   background-color: var(--beige-medium);
   padding: 5rem 2rem;
@@ -27,6 +30,7 @@
   margin-bottom: 2rem;
 }
 
+/* Botón CTA que lleva al catálogo */
 .hero-boton {
   background-color: var(--beige-dark);
   color: var(--white);
@@ -41,7 +45,9 @@
   background-color: var(--gold);
 }
 
-/* Productos destacados */
+/* ─── Productos destacados ────────────────────────────────────── */
+
+/* Sección de los tres productos destacados centrada con ancho máximo */
 .destacados {
   padding: 4rem 2rem;
   max-width: 1200px;
@@ -57,12 +63,14 @@
   text-align: center;
 }
 
+/* Grid de 3 columnas para los productos destacados */
 .destacados-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
 
+/* Tarjeta de producto compartida con Catalogo.css */
 .producto-card {
   background-color: var(--white);
   text-decoration: none;
@@ -93,7 +101,8 @@
   font-weight: 500;
 }
 
-/* ─── Responsive ─── */
+/* ─── Responsive ──────────────────────────────────────────────── */
+
 @media (max-width: 768px) {
   .hero {
     padding: 3rem 1.2rem;
@@ -107,6 +116,7 @@
     font-size: 1rem;
   }
 
+  /* El botón CTA ocupa todo el ancho en móvil */
   .hero-boton {
     display: inline-block;
     width: 100%;
@@ -121,6 +131,7 @@
     font-size: 1.5rem;
   }
 
+  /* Grid pasa a 1 columna en móvil */
   .destacados-grid {
     grid-template-columns: 1fr;
     gap: 1.2rem;
@@ -128,6 +139,7 @@
 }
 
 @media (max-width: 480px) {
+  /* Imagen más baja en pantallas muy pequeñas */
   .producto-imagen img {
     height: 180px;
   }
