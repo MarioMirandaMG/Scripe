@@ -2,5 +2,4 @@
 nixPkgs = ["php84", "php84Packages.composer", "php84Extensions.mbstring", "php84Extensions.pdo", "php84Extensions.tokenizer", "php84Extensions.xml"]
 
 [start]
-cmd = "frankenphp run --config /app/Caddyfile"
-config /app/Caddyfile"
+cmd = "php artisan storage:link && frankenphp run --config /app/Caddyfile"
