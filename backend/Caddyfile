@@ -1,8 +1,8 @@
 {
-    admin off
+	admin off
 }
 
-:{$PORT} {
-    root * /app/public
-    php_server
+:{$PORT:8080} {
+	root * /app/public
+	php_server
 }
