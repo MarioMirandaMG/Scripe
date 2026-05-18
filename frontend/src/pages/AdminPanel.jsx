@@ -7,31 +7,44 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import './AdminPanel.css'
 
+const API = 'http://localhost:8000/api'
+
 function AdminPanel() {
   const { token } = useAuth()
   const [pedidos, setPedidos] = useState([])
   const [productos, setProductos] = useState([])
-  // Controla qué pestaña está activa: 'pedidos', 'productos' o 'stats'
   const [vista, setVista] = useState('pedidos')
-  // Producto que se está editando en el modal; null si el modal está cerrado
   const [productoEditando, setProductoEditando] = useState(null)
+  const [mostrarModalCrear, setMostrarModalCrear] = useState(false)
+  const [errorCrear, setErrorCrear] = useState(null)
+  const [nuevoProducto, setNuevoProducto] = useState({
+    nombre: '', precio: '', descripcion: '', stock: '', categoria_id: ''
+  })
 
-  // Cargamos pedidos (ruta protegida) y productos (ruta pública) al montar el componente
   useEffect(() => {
-    fetch('http://localhost:8000/api/pedidos', {
-      headers: { Authorization: `Bearer ${token}` }
+    if (!token) return
+
+    fetch(`${API}/pedidos`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      }
     })
       .then(r => r.json())
-      .then(data => setPedidos(data))
+      .then(data => setPedidos(Array.isArray(data) ? data : []))
+      .catch(e => console.error('Error pedidos:', e))
 
-    fetch('http://localhost:8000/api/productos')
+    fetch(`${API}/productos`, {
+      headers: { Accept: 'application/json' }
+    })
       .then(r => r.json())
-      .then(data => setProductos(data))
+      .then(data => setProductos(Array.isArray(data) ? data : []))
+      .catch(e => console.error('Error productos:', e))
   }, [token])
 
-  // ── Stats calculadas ──────────────────────────────────────────
+  // ── Stats ──────────────────────────────────────────────────────
 
-  const totalIngresos     = pedidos.reduce((acc, p) => acc + parseFloat(p.total), 0).toFixed(2)
+  const totalIngresos     = pedidos.reduce((acc, p) => acc + parseFloat(p.total || 0), 0).toFixed(2)
   const pedidosPendientes = pedidos.filter(p => p.estado === 'Pendiente').length
   const pedidosEnviados   = pedidos.filter(p => p.estado === 'Enviado').length
   const pedidosEntregados = pedidos.filter(p => p.estado === 'Entregado').length
@@ -39,49 +52,112 @@ function AdminPanel() {
   const productoMasBarato = productos.length ? [...productos].sort((a, b) => a.precio - b.precio)[0] : null
   const productoMasCaro   = productos.length ? [...productos].sort((a, b) => b.precio - a.precio)[0] : null
 
-  // ── Handlers ─────────────────────────────────────────────────
+  // ── Headers comunes autenticados ──────────────────────────────
 
-  // Actualiza el estado de un pedido en el backend y en el estado local
+  const headersAuth = {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  }
+
+  // ── Handlers ──────────────────────────────────────────────────
+
   const cambiarEstado = async (id, estado) => {
-    await fetch(`http://localhost:8000/api/pedidos/${id}`, {
+    await fetch(`${API}/pedidos/${id}`, {
       method: 'PUT',
-      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      headers: headersAuth,
       body: JSON.stringify({ estado })
     })
     setPedidos(pedidos.map(p => p.id === id ? { ...p, estado } : p))
   }
 
-  // Actualiza el stock de un producto; ignora valores negativos
   const cambiarStock = async (id, nuevoStock) => {
     if (nuevoStock < 0) return
-    await fetch(`http://localhost:8000/api/productos/${id}`, {
+    await fetch(`${API}/productos/${id}`, {
       method: 'PUT',
-      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      headers: headersAuth,
       body: JSON.stringify({ stock: nuevoStock })
     })
     setProductos(productos.map(p => p.id === id ? { ...p, stock: nuevoStock } : p))
   }
 
-  // Elimina un producto tras confirmación del administrador
   const eliminarProducto = async (id) => {
     if (!confirm('¿Seguro que quieres eliminar este producto?')) return
-    await fetch(`http://localhost:8000/api/productos/${id}`, {
+    await fetch(`${API}/productos/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` }
+      headers: headersAuth,
     })
     setProductos(productos.filter(p => p.id !== id))
   }
 
-  // Guarda los cambios del modal y cierra el formulario de edición
   const guardarEdicion = async () => {
-    await fetch(`http://localhost:8000/api/productos/${productoEditando.id}`, {
+    await fetch(`${API}/productos/${productoEditando.id}`, {
       method: 'PUT',
-      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      headers: headersAuth,
       body: JSON.stringify(productoEditando)
     })
     setProductos(productos.map(p => p.id === productoEditando.id ? productoEditando : p))
     setProductoEditando(null)
   }
+
+  const crearProducto = async () => {
+    setErrorCrear(null)
+
+    if (!token) {
+      setErrorCrear('No estás autenticado. Vuelve a iniciar sesión.')
+      return
+    }
+
+    if (!nuevoProducto.nombre || !nuevoProducto.precio || !nuevoProducto.stock || !nuevoProducto.categoria_id) {
+      setErrorCrear('Nombre, precio, stock y categoría son obligatorios.')
+      return
+    }
+
+    try {
+      const res = await fetch(`${API}/productos`, {
+        method: 'POST',
+        headers: headersAuth,
+        body: JSON.stringify({
+          nombre:       nuevoProducto.nombre,
+          precio:       parseFloat(nuevoProducto.precio),
+          descripcion:  nuevoProducto.descripcion,
+          stock:        parseInt(nuevoProducto.stock, 10),
+          categoria_id: parseInt(nuevoProducto.categoria_id, 10),
+        })
+      })
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}))
+        setErrorCrear(`Error ${res.status}: ${errData.message || JSON.stringify(errData.errors || errData)}`)
+        return
+      }
+
+      const creado = await res.json()
+      setProductos(prev => [...prev, creado])
+      setMostrarModalCrear(false)
+      setNuevoProducto({ nombre: '', precio: '', descripcion: '', stock: '', categoria_id: '' })
+
+    } catch (e) {
+      setErrorCrear('Error de red. Comprueba que el servidor Laravel está corriendo en el puerto 8000.')
+      console.error('crearProducto:', e)
+    }
+  }
+
+  // ── Guard: no autenticado ─────────────────────────────────────
+
+  if (!token) {
+    return (
+      <div className="admin">
+        <Navbar />
+        <div className="admin-contenido">
+          <p>No estás autenticado. Por favor inicia sesión.</p>
+        </div>
+        <Footer />
+      </div>
+    )
+  }
+
+  // ── Render ────────────────────────────────────────────────────
 
   return (
     <div className="admin">
@@ -89,14 +165,14 @@ function AdminPanel() {
       <div className="admin-contenido">
         <h2>Panel de Administración</h2>
 
-        {/* Tabs — la clase 'activo' resalta la pestaña seleccionada */}
+        {/* Tabs */}
         <div className="admin-tabs" role="tablist">
           <button role="tab" aria-selected={vista === 'pedidos'}   onClick={() => setVista('pedidos')}   className={vista === 'pedidos'   ? 'activo' : ''}>Pedidos</button>
           <button role="tab" aria-selected={vista === 'productos'} onClick={() => setVista('productos')} className={vista === 'productos' ? 'activo' : ''}>Productos</button>
           <button role="tab" aria-selected={vista === 'stats'}     onClick={() => setVista('stats')}     className={vista === 'stats'     ? 'activo' : ''}>Estadísticas</button>
         </div>
 
-        {/* Vista de pedidos — permite cambiar el estado de cada pedido */}
+        {/* ── Vista pedidos ── */}
         {vista === 'pedidos' && (
           <table className="admin-tabla">
             <thead>
@@ -116,7 +192,6 @@ function AdminPanel() {
                   <td>{p.total} €</td>
                   <td>{p.estado}</td>
                   <td>
-                    {/* Label vinculado al select para accesibilidad (WCAG nivel A) */}
                     <label htmlFor={`estado-${p.id}`} className="sr-only">
                       Cambiar estado del pedido #{p.id}
                     </label>
@@ -136,47 +211,52 @@ function AdminPanel() {
           </table>
         )}
 
-        {/* Vista de productos — gestión de stock y acciones CRUD */}
+        {/* ── Vista productos ── */}
         {vista === 'productos' && (
-          <table className="admin-tabla">
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Gestionar Stock</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {productos.map(p => (
-                <tr key={p.id}>
-                  <td>#{p.id}</td>
-                  <td>{p.nombre}</td>
-                  <td>{p.precio} €</td>
-                  <td>{p.stock}</td>
-                  <td>
-                    {/* Botones + / - para ajustar el stock unitariamente */}
-                    <div className="stock-acciones">
-                      <button aria-label={`Reducir stock de ${p.nombre}`} onClick={() => cambiarStock(p.id, p.stock - 1)}>−</button>
-                      <span aria-live="polite">{p.stock}</span>
-                      <button aria-label={`Aumentar stock de ${p.nombre}`} onClick={() => cambiarStock(p.id, p.stock + 1)}>+</button>
-                    </div>
-                  </td>
-                  <td>
-                    <div className="producto-acciones">
-                      <button className="btn-editar"   aria-label={`Editar ${p.nombre}`}    onClick={() => setProductoEditando({ ...p })}>Editar</button>
-                      <button className="btn-eliminar" aria-label={`Eliminar ${p.nombre}`}  onClick={() => eliminarProducto(p.id)}>Eliminar</button>
-                    </div>
-                  </td>
+          <>
+            <button className="btn-nuevo-producto" onClick={() => setMostrarModalCrear(true)}>
+              + Nuevo producto
+            </button>
+
+            <table className="admin-tabla">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Stock</th>
+                  <th scope="col">Gestionar Stock</th>
+                  <th scope="col">Acciones</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {productos.map(p => (
+                  <tr key={p.id}>
+                    <td>#{p.id}</td>
+                    <td>{p.nombre}</td>
+                    <td>{p.precio} €</td>
+                    <td>{p.stock}</td>
+                    <td>
+                      <div className="stock-acciones">
+                        <button aria-label={`Reducir stock de ${p.nombre}`}  onClick={() => cambiarStock(p.id, p.stock - 1)}>−</button>
+                        <span aria-live="polite">{p.stock}</span>
+                        <button aria-label={`Aumentar stock de ${p.nombre}`} onClick={() => cambiarStock(p.id, p.stock + 1)}>+</button>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="producto-acciones">
+                        <button className="btn-editar"   aria-label={`Editar ${p.nombre}`}   onClick={() => setProductoEditando({ ...p })}>Editar</button>
+                        <button className="btn-eliminar" aria-label={`Eliminar ${p.nombre}`} onClick={() => eliminarProducto(p.id)}>Eliminar</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
         )}
 
-        {/* Vista de estadísticas — métricas calculadas a partir de pedidos y productos */}
+        {/* ── Vista stats ── */}
         {vista === 'stats' && (
           <div className="stats-grid">
             <div className="stat-card"><span className="stat-icon">💰</span><span className="stat-label">Ingresos totales</span><span className="stat-valor">{totalIngresos} €</span></div>
@@ -194,13 +274,12 @@ function AdminPanel() {
           </div>
         )}
 
-        {/* Modal de edición — visible solo cuando productoEditando no es null */}
+        {/* ── Modal edición ── */}
         {productoEditando && (
           <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
             <div className="modal">
               <h3 id="modal-titulo">Editar producto</h3>
 
-              {/* Labels vinculados a sus inputs mediante htmlFor + id (WCAG nivel A) */}
               <label htmlFor="edit-nombre">Nombre</label>
               <input
                 id="edit-nombre"
@@ -226,6 +305,64 @@ function AdminPanel() {
               <div className="modal-btns">
                 <button className="btn-guardar"  onClick={guardarEdicion}>Guardar</button>
                 <button className="btn-cancelar" onClick={() => setProductoEditando(null)}>Cancelar</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Modal creación ── */}
+        {mostrarModalCrear && (
+          <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-crear-titulo">
+            <div className="modal">
+              <h3 id="modal-crear-titulo">Nuevo producto</h3>
+
+              {errorCrear && (
+                <p role="alert" style={{ color: 'red', marginBottom: '0.75rem', fontSize: '0.9rem' }}>
+                  {errorCrear}
+                </p>
+              )}
+
+              <label htmlFor="crear-nombre">Nombre</label>
+              <input
+                id="crear-nombre"
+                value={nuevoProducto.nombre}
+                onChange={e => setNuevoProducto({ ...nuevoProducto, nombre: e.target.value })}
+              />
+
+              <label htmlFor="crear-precio">Precio (€)</label>
+              <input
+                id="crear-precio"
+                type="number"
+                value={nuevoProducto.precio}
+                onChange={e => setNuevoProducto({ ...nuevoProducto, precio: e.target.value })}
+              />
+
+              <label htmlFor="crear-stock">Stock</label>
+              <input
+                id="crear-stock"
+                type="number"
+                value={nuevoProducto.stock}
+                onChange={e => setNuevoProducto({ ...nuevoProducto, stock: e.target.value })}
+              />
+
+              <label htmlFor="crear-categoria">ID Categoría</label>
+              <input
+                id="crear-categoria"
+                type="number"
+                value={nuevoProducto.categoria_id}
+                onChange={e => setNuevoProducto({ ...nuevoProducto, categoria_id: e.target.value })}
+              />
+
+              <label htmlFor="crear-descripcion">Descripción</label>
+              <textarea
+                id="crear-descripcion"
+                value={nuevoProducto.descripcion}
+                onChange={e => setNuevoProducto({ ...nuevoProducto, descripcion: e.target.value })}
+              />
+
+              <div className="modal-btns">
+                <button className="btn-guardar" onClick={crearProducto}>Crear</button>
+                <button className="btn-cancelar" onClick={() => { setMostrarModalCrear(false); setErrorCrear(null) }}>Cancelar</button>
               </div>
             </div>
           </div>
