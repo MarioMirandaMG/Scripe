@@ -64,4 +64,4 @@ export function CartProvider({ children }) {
 // Hook para consumir el contexto del carrito desde cualquier componente
 export function useCart() {
   return useContext(CartContext)
-}
+} 

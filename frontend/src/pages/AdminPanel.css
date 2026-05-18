@@ -59,6 +59,29 @@
   color: var(--white);
 }
 
+/* ─── Botón nuevo producto ────────────────────────────────────── */
+
+/* Botón de creación alineado a la derecha, encima de la tabla */
+.btn-nuevo-producto {
+  display: block;
+  margin-left: auto;
+  margin-bottom: 1rem;
+  padding: 0.55rem 1.4rem;
+  background: var(--gold);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-nuevo-producto:hover {
+  background: var(--beige-dark);
+}
+
 /* ─── Tabla ───────────────────────────────────────────────────── */
 
 /* Tabla principal con bordes redondeados y sombra suave */
@@ -361,6 +384,13 @@
     display: block;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+  }
+
+  /* Botón nuevo producto ocupa todo el ancho en móvil */
+  .btn-nuevo-producto {
+    width: 100%;
+    text-align: center;
+    margin-left: 0;
   }
 
   /* Modal ocupa casi toda la pantalla en móvil */
