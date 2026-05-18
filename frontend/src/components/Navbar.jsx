@@ -28,7 +28,7 @@ function Navbar() {
       {/* Logo — cierra el menú si estaba abierto */}
       <div className="navbar-logo">
         <Link to="/" onClick={() => setMenuAbierto(false)}>
-          <img src="http://localhost:8000/storage/logo.png" alt="Scripe logo" className="navbar-logo-img" />
+          <img src={`${import.meta.env.VITE_BACKEND_URL}/storage/logo.png`} alt="Scripe logo" className="navbar-logo-img" />
         </Link>
       </div>
 
