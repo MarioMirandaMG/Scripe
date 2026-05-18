@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import './AdminPanel.css'
 
-const API = 'http://localhost:8000/api'
+const API = `${import.meta.env.VITE_BACKEND_URL}/api`
 
 function AdminPanel() {
   const { token } = useAuth()

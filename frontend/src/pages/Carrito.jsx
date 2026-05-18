@@ -22,7 +22,7 @@ function Carrito() {
   // Cargamos las direcciones del usuario y preseleccionamos la principal
   useEffect(() => {
     if (token) {
-      fetch('http://localhost:8000/api/direcciones', {
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/direcciones`, {
         headers: { Authorization: `Bearer ${token}` }
       })
         .then(r => r.json())
