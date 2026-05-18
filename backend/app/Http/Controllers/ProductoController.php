@@ -18,10 +18,24 @@ class ProductoController extends Controller
     /**
      * Devuelve todos los productos de la base de datos.
      *
-     * @return \Illuminate\Database\Eloquent\Collection  Lista completa de productos
+     * Además, transforma el campo imagen para que devuelva
+     * una ruta pública accesible desde el frontend.
+     *
+     * @return \Illuminate\Http\JsonResponse  Lista completa de productos en formato JSON
      */
-    public function index(){
-        return Producto::all();
+    public function index()
+    {
+        $productos = Producto::all()->map(function ($producto) {
+            // Si el producto tiene imagen, se construye la URL pública
+            // usando la carpeta storage enlazada al directorio public
+            $producto->imagen = $producto->imagen
+                ? asset('storage/' . $producto->imagen)
+                : null;
+
+            return $producto;
+        });
+
+        return response()->json($productos);
     }
 
     /**
@@ -31,9 +45,10 @@ class ProductoController extends Controller
      * y que la categoría exista antes de insertar.
      *
      * @param  \Illuminate\Http\Request  $request  Datos del nuevo producto
-     * @return \Illuminate\Http\JsonResponse         Producto creado con código 201
+     * @return \Illuminate\Http\JsonResponse       Producto creado con código 201
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'nombre'       => 'required|string|max:255',
             'descripcion'  => 'nullable|string',
@@ -43,6 +58,12 @@ class ProductoController extends Controller
         ]);
 
         $producto = Producto::create($request->all());
+
+        // Si el producto tiene imagen, se transforma también a URL pública
+        $producto->imagen = $producto->imagen
+            ? asset('storage/' . $producto->imagen)
+            : null;
+
         return response()->json($producto, 201);
     }
 
@@ -50,12 +71,21 @@ class ProductoController extends Controller
      * Devuelve un producto concreto por su ID.
      *
      * Lanza un error 404 si el producto no existe.
+     * También transforma la imagen en una URL pública accesible.
      *
      * @param  int  $id  Identificador del producto
-     * @return \App\Models\Producto  Producto encontrado
+     * @return \Illuminate\Http\JsonResponse  Producto encontrado en formato JSON
      */
-    public function show($id){
-        return Producto::findOrFail($id);
+    public function show($id)
+    {
+        $producto = Producto::findOrFail($id);
+
+        // Si el producto tiene imagen, se construye la ruta pública
+        $producto->imagen = $producto->imagen
+            ? asset('storage/' . $producto->imagen)
+            : null;
+
+        return response()->json($producto);
     }
 
     /**
@@ -66,9 +96,10 @@ class ProductoController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request  Nuevos datos del producto
      * @param  int                       $id       Identificador del producto
-     * @return \Illuminate\Http\JsonResponse        Producto actualizado
+     * @return \Illuminate\Http\JsonResponse       Producto actualizado
      */
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $request->validate([
             'nombre'       => 'string|max:255',
             'descripcion'  => 'nullable|string',
@@ -79,6 +110,12 @@ class ProductoController extends Controller
 
         $producto = Producto::findOrFail($id);
         $producto->update($request->all());
+
+        // Si el producto tiene imagen, se devuelve como URL pública
+        $producto->imagen = $producto->imagen
+            ? asset('storage/' . $producto->imagen)
+            : null;
+
         return response()->json($producto);
     }
 
@@ -88,8 +125,10 @@ class ProductoController extends Controller
      * @param  int  $id  Identificador del producto a eliminar
      * @return \Illuminate\Http\JsonResponse  Mensaje de confirmación
      */
-    public function destroy($id){
+    public function destroy($id)
+    {
         Producto::destroy($id);
+
         return response()->json(['mensaje' => 'Producto eliminado']);
     }
 }
