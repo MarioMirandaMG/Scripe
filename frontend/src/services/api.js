@@ -17,7 +17,7 @@ api.interceptors.request.use(config => {
 
 // ─── Imágenes ─────────────────────────────────────────────────
 export const getImageUrl = (path) =>
-  path ? `${import.meta.env.VITE_BACKEND_URL}/storage/${path}` : '/placeholder.jpg'
+  path ? path : '/placeholder.jpg'
 
 // ─── Auth ─────────────────────────────────────────────────────
 export const login    = (data) => api.post('/login', data)
