@@ -17,6 +17,13 @@ function Home() {
       .catch(err => console.error('Error al cargar productos:', err))
   }, [])
 
+  const getHomeImageUrl = (id) => {
+    if (id === 1) return `${import.meta.env.VITE_BACKEND_URL}/images/Boligrafo-roble.jpg`
+    if (id === 2) return `${import.meta.env.VITE_BACKEND_URL}/images/Boligrafo-nogal.jpg`
+    if (id === 3) return `${import.meta.env.VITE_BACKEND_URL}/images/Boligrafo-azul.jpg`
+    return `${import.meta.env.VITE_BACKEND_URL}/images/logo.png`
+  }
+
   return (
     <div className="home">
       <Navbar />
@@ -41,7 +48,7 @@ function Home() {
             >
               <div className="producto-imagen">
                 <img
-                  src={producto.imagen}
+                  src={getHomeImageUrl(producto.id)}
                   alt={`Fotografía de ${producto.nombre}`}
                   loading="lazy"
                 />
