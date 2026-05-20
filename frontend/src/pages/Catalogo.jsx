@@ -5,18 +5,16 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { getProductos, getCategorias, getImageUrl } from '../services/api'
+import { getProductos, getCategorias } from '../services/api'
 import './Catalogo.css'
 
 function Catalogo() {
   const [productos, setProductos] = useState([])
   const [categorias, setCategorias] = useState([])
-  // Filtros del sidebar — null significa sin filtro activo
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null)
   const [precioMax, setPrecioMax] = useState('')
   const [soloEnStock, setSoloEnStock] = useState(false)
 
-  // Cargamos productos y categorías al montar el componente
   useEffect(() => {
     getProductos()
       .then(res => setProductos(res.data))
@@ -27,11 +25,19 @@ function Catalogo() {
       .catch(err => console.error('Error al cargar categorías:', err))
   }, [])
 
-  // Aplicamos los tres filtros en cascada sobre el array de productos
+  const getCatalogoImageUrl = (id) => {
+    if (id === 1) return `${import.meta.env.VITE_BACKEND_URL}/images/Boligrafo-roble.jpg`
+    if (id === 2) return `${import.meta.env.VITE_BACKEND_URL}/images/Boligrafo-nogal.jpg`
+    if (id === 3) return `${import.meta.env.VITE_BACKEND_URL}/images/Boligrafo-azul.jpg`
+    if (id === 4) return `${import.meta.env.VITE_BACKEND_URL}/images/Boligrafo-rojo.jpg`
+    if (id === 5) return `${import.meta.env.VITE_BACKEND_URL}/images/Boligrafo-cuerna.jpg`
+    return `${import.meta.env.VITE_BACKEND_URL}/images/logo.png`
+  }
+
   const productosFiltrados = productos.filter(p => {
-    const filtroPrecio    = precioMax === '' || p.precio <= parseFloat(precioMax)
+    const filtroPrecio = precioMax === '' || p.precio <= parseFloat(precioMax)
     const filtroCategoria = categoriaSeleccionada === null || p.categoria_id === categoriaSeleccionada
-    const filtroStock     = !soloEnStock || p.stock > 0
+    const filtroStock = !soloEnStock || p.stock > 0
     return filtroPrecio && filtroCategoria && filtroStock
   })
 
@@ -40,12 +46,9 @@ function Catalogo() {
       <Navbar />
 
       <div className="catalogo-contenido">
-
-        {/* Sidebar de filtros */}
         <aside className="filtros" aria-label="Filtros de productos">
           <h3>Filtros</h3>
 
-          {/* Filtro por categoría — radio buttons generados desde la API */}
           <div className="filtro-grupo">
             <h4 id="label-coleccion">Colección</h4>
             <ul role="radiogroup" aria-labelledby="label-coleccion">
@@ -75,7 +78,6 @@ function Catalogo() {
             </ul>
           </div>
 
-          {/* Filtro por precio máximo */}
           <div className="filtro-grupo">
             <label htmlFor="precio-max"><h4>Precio máximo</h4></label>
             <input
@@ -88,7 +90,6 @@ function Catalogo() {
             />
           </div>
 
-          {/* Filtro para mostrar solo productos con stock disponible */}
           <div className="filtro-grupo">
             <h4>Disponibilidad</h4>
             <label>
@@ -102,7 +103,6 @@ function Catalogo() {
           </div>
         </aside>
 
-        {/* Grid de productos filtrados — cada tarjeta lleva a la ficha del producto */}
         <section className="productos-grid" aria-label="Listado de productos">
           {productosFiltrados.length === 0 ? (
             <p className="sin-productos">No hay productos disponibles.</p>
@@ -116,7 +116,7 @@ function Catalogo() {
               >
                 <div className="producto-imagen">
                   <img
-                    src={getImageUrl(producto.imagen)}
+                    src={getCatalogoImageUrl(producto.id)}
                     alt={`Fotografía de ${producto.nombre}`}
                     loading="lazy"
                   />
@@ -127,8 +127,8 @@ function Catalogo() {
             ))
           )}
         </section>
-
       </div>
+
       <Footer />
     </div>
   )
