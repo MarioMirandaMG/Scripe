@@ -5,13 +5,12 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { getProductos, getImageUrl } from '../services/api'
+import { getProductos } from '../services/api'
 import './Home.css'
 
 function Home() {
   const [productos, setProductos] = useState([])
 
-  // Cargamos solo los 3 primeros productos para la sección de destacados
   useEffect(() => {
     getProductos()
       .then(res => setProductos(res.data.slice(0, 3)))
@@ -22,7 +21,6 @@ function Home() {
     <div className="home">
       <Navbar />
 
-      {/* Hero — presentación de la marca con CTA al catálogo */}
       <section className="hero">
         <div className="hero-texto">
           <h1>Bolígrafos artesanales únicos</h1>
@@ -31,7 +29,6 @@ function Home() {
         </div>
       </section>
 
-      {/* Productos destacados — muestra los 3 primeros del catálogo */}
       <section className="destacados">
         <h2>Productos Destacados</h2>
         <div className="destacados-grid">
@@ -43,9 +40,8 @@ function Home() {
               aria-label={`Ver detalle de ${producto.nombre}`}
             >
               <div className="producto-imagen">
-                {/* alt descriptivo para lectores de pantalla (WCAG nivel A) */}
                 <img
-                  src={getImageUrl(producto.imagen)}
+                  src={producto.imagen}
                   alt={`Fotografía de ${producto.nombre}`}
                   loading="lazy"
                 />
