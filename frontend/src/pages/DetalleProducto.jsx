@@ -5,33 +5,37 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { getProducto, getImageUrl } from '../services/api'
+import { getProducto } from '../services/api'
 import { useCart } from '../context/CartContext'
 import './DetalleProducto.css'
 
 function DetalleProducto() {
-  // Obtenemos el id del producto desde la URL (ej: /producto/3)
   const { id } = useParams()
   const [producto, setProducto] = useState(null)
-  // Controla el feedback visual del botón tras añadir al carrito
   const [añadido, setAñadido] = useState(false)
   const { añadir } = useCart()
 
-  // Cargamos los datos del producto al montar o cuando cambia el id
   useEffect(() => {
     getProducto(id)
       .then(res => setProducto(res.data))
       .catch(err => console.error('Error al cargar producto:', err))
   }, [id])
 
-  // Añade el producto al carrito y muestra confirmación durante 2 segundos
   const handleAñadir = () => {
     añadir(producto)
     setAñadido(true)
     setTimeout(() => setAñadido(false), 2000)
   }
 
-  // Mientras el producto no haya cargado mostramos un mensaje de espera
+  const getDetalleImageUrl = (id) => {
+    if (Number(id) === 1) return `${import.meta.env.VITE_BACKEND_URL}/images/Boligrafo-roble.jpg`
+    if (Number(id) === 2) return `${import.meta.env.VITE_BACKEND_URL}/images/Boligrafo-nogal.jpg`
+    if (Number(id) === 3) return `${import.meta.env.VITE_BACKEND_URL}/images/Boligrafo-azul.jpg`
+    if (Number(id) === 4) return `${import.meta.env.VITE_BACKEND_URL}/images/Boligrafo-rojo.jpg`
+    if (Number(id) === 5) return `${import.meta.env.VITE_BACKEND_URL}/images/Boligrafo-cuerna.jpg`
+    return `${import.meta.env.VITE_BACKEND_URL}/images/logo.png`
+  }
+
   if (!producto) return <p aria-live="polite">Cargando...</p>
 
   return (
@@ -39,7 +43,7 @@ function DetalleProducto() {
       <Navbar />
       <main className="detalle-contenido">
         <img
-          src={getImageUrl(producto.imagen)}
+          src={getDetalleImageUrl(id)}
           alt={`Fotografía de ${producto.nombre}`}
           loading="lazy"
         />
@@ -47,7 +51,6 @@ function DetalleProducto() {
           <h1>{producto.nombre}</h1>
           <p className="detalle-precio">{producto.precio} €</p>
           <p className="detalle-descripcion">{producto.descripcion}</p>
-          {/* El botón cambia de texto al añadir para dar feedback al usuario */}
           <button
             className="detalle-boton"
             onClick={handleAñadir}
